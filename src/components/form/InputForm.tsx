@@ -1,17 +1,21 @@
-import { useFormContext, Controller } from 'react-hook-form'
-import { InputField } from '../common/InputField';
+import { useFormContext, Controller, type FieldValues, type Path } from 'react-hook-form'
+import { InputField, type BaseInputProps } from '../common/InputField';
 
-interface FormControler {
-    name: string,
-    type?: string
-}
+type FormControler<T extends FieldValues> = {
+  name: Path<T>;
+  type? : string
+};
 
-export function InputForm({
+type FormInputProps<T extends FieldValues> = FormControler<T> &
+  Omit<BaseInputProps, 'error' | 'name'>;
+
+
+export function InputForm<T extends FieldValues>({
     name,
     type = 'text',
     ...rest
-}: FormControler) {
-    const { control } = useFormContext();
+}: FormInputProps<T>) {
+    const { control } = useFormContext<T>();
     return (
         <Controller
             name={name}

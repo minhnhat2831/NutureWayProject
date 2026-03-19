@@ -27,7 +27,7 @@ export const TextAreaField = forwardRef<HTMLTextAreaElement, BaseTextAreaProps>(
     return (
       <div className={cn('w-full', containerClassName)}>
         {label && (
-          <label className={cn('block text-sm font-medium text-gray-700 mb-1.5', labelClassName)}>
+          <label className={cn('block text-sm font-medium text-gray-700 mb-1.5 font-serif', labelClassName)}>
             {label}
             {required && <span className="text-red-500 ml-0.5">*</span>}
           </label>
@@ -37,7 +37,7 @@ export const TextAreaField = forwardRef<HTMLTextAreaElement, BaseTextAreaProps>(
           rows={rows}
           disabled={disabled}
           className={cn(
-            'w-full px-3 py-2.5 border rounded-lg text-sm outline-none transition-all resize-vertical',
+            'w-full px-3 py-2.5 border rounded-lg text-sm outline-none transition-all resize-vertical font-serif',
             'text-gray-900 placeholder:text-gray-400',
             'focus:ring-2 focus:ring-blue-500 focus:border-blue-500',
             error
@@ -48,7 +48,7 @@ export const TextAreaField = forwardRef<HTMLTextAreaElement, BaseTextAreaProps>(
           )}
           {...props}
         />
-        {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
+        {error && <p className="mt-1 text-xs text-red-500 font-serif">{error}</p>}
       </div>
     );
   }
