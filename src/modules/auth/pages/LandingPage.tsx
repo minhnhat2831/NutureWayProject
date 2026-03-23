@@ -1,21 +1,12 @@
 import { ButtonField } from "@/components/common/ButtonField";
 import { Icons } from "@/components/common/Icons";
 import { InputForm } from "@/components/form/InputForm";
-import { FormProvider, useForm } from "react-hook-form";
-import { useNavigate } from "react-router";
+import { FormProvider } from "react-hook-form";
+import useAuth from "../hooks/useAuth";
 
-export default function OnboardingPage() {
-    const method = useForm()
-    const nav = useNavigate()
-
-    const handleCheckEmail = () => {
-        nav('/login')
-        /*
-        if(true) return nav('login')     Have account
-        if(false) return nav('send-otp') Don't have account
-        */
-
-    }
+export default function LandingPage() {
+    const { useCheckEmail } = useAuth()
+    const { isLoading, method, onSubmit } = useCheckEmail()
 
     return (<>
         <FormProvider {...method}>
@@ -25,7 +16,7 @@ export default function OnboardingPage() {
                     <h3 className="text-gray-100 font-medium font-serif text-md cursor-default tracking-wider">Connecting you to doulas</h3>
                 </div>
                 <div className="bg-gray-300 w-full h-auto rounded-2xl">
-                    <form className="flex-1 flex-col flex px-4 py-7 gap-4">
+                    <form onSubmit={method.handleSubmit(onSubmit)} className="flex-1 flex-col flex px-4 py-7 gap-4">
                         <div className="py-1 text-left">
                             <p className="text-2xl font-serif font-bold cursor-default tracking-normal">NutureWave</p>
                             <small className="text-sm font-serif cursor-default tracking-tight">Hi! Let's get you started!</small>
@@ -38,11 +29,11 @@ export default function OnboardingPage() {
                         >
                         </InputForm>
                         <ButtonField
-                            type="button"
+                            disabled={isLoading}
+                            type="submit"
                             fullWidth
-                            onClick={() => handleCheckEmail()}
                         >
-                            Continue
+                            {isLoading ? "Checking..." : "Continue"}
                         </ButtonField>
 
                         <hr className="bg-gray-300 h-1 w-full px-4" />
@@ -60,6 +51,8 @@ export default function OnboardingPage() {
                     </form>
                 </div>
             </div>
+
+
         </FormProvider>
     </>)
 }

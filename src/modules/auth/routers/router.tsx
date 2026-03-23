@@ -1,6 +1,6 @@
 import PageLayout from "@/layout/PageLayout";
 import { Route, Routes } from "react-router";
-import OnboardingPage from "../pages/OnboardingPage";
+import LandingPage from "../pages/LandingPage"
 import LoginPage from "../pages/LoginPage";
 import ForgotPasswordPage from "../pages/ForgotPasswordPage";
 import SendOtpPage from "../pages/SendOtpPage";
@@ -10,13 +10,13 @@ import RegisterPage from "../pages/RegisterPage";
 import AboutYouPage from "../pages/AboutYouPage";
 import PaymentPage from "../pages/PaymentPage";
 
-export default function LoginRouter() {
+export default function AuthRouter() {
     return (<>
         <Routes>
             <Route path="/"
                 element={
                     <PageLayout>
-                        <OnboardingPage />
+                        <LandingPage />
                     </PageLayout>
                 }>
             </Route>

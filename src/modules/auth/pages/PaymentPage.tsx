@@ -1,7 +1,7 @@
 import { InputForm } from "@/components/form/InputForm"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router"
-import LoginLayout from "../components/LoginLayout"
+import AuthLayout from "../components/layout/AuthLayout"
 import { Icons } from "@/components/common/Icons"
 
 export default function PaymentPage() {
@@ -12,7 +12,7 @@ export default function PaymentPage() {
         nav('/home')
     }
     return (<>
-        <LoginLayout
+        <AuthLayout
             method={method}
             title="Payment"
             subTitle={<><Icons.paymentIcon /></>}
@@ -63,7 +63,7 @@ export default function PaymentPage() {
             buttonName="Start trial"
             onClick={() => handleSubmit()}
         >
-        </LoginLayout>
+        </AuthLayout>
 
     </>)
 }

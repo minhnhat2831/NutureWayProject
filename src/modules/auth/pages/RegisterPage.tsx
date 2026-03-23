@@ -1,25 +1,30 @@
-import { useForm } from "react-hook-form";
-import LoginLayout from "../components/LoginLayout";
+import AuthLayout from "../components/layout/AuthLayout";
 import { InputForm } from "@/components/form/InputForm";
 import { DatePickerForm } from "@/components/form/DatePickerForm";
 import { SelectForm } from "@/components/form/SelectForm";
-import { useNavigate } from "react-router";
+import useAuth from "../hooks/useAuth";
+import { useOnboardingStore } from "../store/useOnboardingStore";
+import { useEffect } from "react";
 
 const ADDRESS_OPTION = [
-    { value : '228 Lennox Street' , label : '228 Lennox Street'},
-    { value : '30/5 ohio Street' , label : '30/5 ohio Street'},
+    { value : '675966dc-0614-cc23-63b9-c26e338a492d' , label : '228 Lennox Street'},
+    { value : '675966dc-0614-cc23-63b9-c26e338a492d' , label : '30/5 ohio Street'},
 ]
 
 export default function RegisterPage() {
-    const method = useForm()
-    const nav = useNavigate()
+    const { useRegisterDetail } = useAuth()
+    const { handleRegisterDetail, method } = useRegisterDetail()
+    const { registerData } = useOnboardingStore()
 
-    const handleSubmit = () => {
-        nav('/select-identity')
-    }
-
+    useEffect(() => {
+        method.setValue('firstName', registerData?.firstName ?? '')
+        method.setValue('lastName', registerData?.lastName ?? '')
+        method.setValue('middleName', registerData?.middleName ?? '')
+        method.setValue('birthDate', registerData?.birthDate ?? '')
+        method.setValue('addressId', registerData?.addressId ?? '')
+    },[method.setValue])
     return (<>
-        <LoginLayout
+        <AuthLayout
             method={method}
             title="Your details"
             subTitle="Welcome to NurtureWave! Tell us a bit more about yourself!"
@@ -42,12 +47,12 @@ export default function RegisterPage() {
                     required
                 />
                 <DatePickerForm
-                    name="dateOfBirth"
+                    name="birthDate"
                     label="Birthday"
                     required
                 />
                 <SelectForm 
-                    name="address"
+                    name="addressId"
                     label="Address"
                     required
                     options={ADDRESS_OPTION}
@@ -55,7 +60,7 @@ export default function RegisterPage() {
                 <p className="text-[10px]">Your address helps us find doulas near you</p>
             </>}
             buttonName="Next"
-            onClick={() => handleSubmit()}
+            onClick={() => handleRegisterDetail()}
         />
     </>)
 }

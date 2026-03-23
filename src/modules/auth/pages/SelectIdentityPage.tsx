@@ -1,29 +1,13 @@
-import { useForm } from "react-hook-form"
-import { useNavigate } from "react-router"
-import LoginLayout from "../components/LoginLayout"
-import { useState } from "react"
+import AuthLayout from "../components/layout/AuthLayout"
 import { Icons } from "@/components/common/Icons"
-import { toast } from "react-toastify"
+import useAuth from "../hooks/useAuth"
 
 export default function SelectIdentityPage() {
-    const method = useForm()
-    const nav = useNavigate()
-    const [select, setSelect] = useState('')
-
-    const handleSelect = () => {
-        if(select === ''){
-            toast.error("Please select one to continue!")
-        }
-
-        if(select === 'client'){
-            toast.success('Success')
-        }else if(select === 'doula'){
-            nav('/about-you')
-        }
-    }
+    const { useRegiter } = useAuth()
+    const { method, setSelect, onSubmit, select, isLoadingClient } = useRegiter()
 
     return (<>
-        <LoginLayout
+        <AuthLayout
             method={method}
             title='Please select from below'
             subTitle="Please choose from below your user identity"
@@ -45,10 +29,11 @@ export default function SelectIdentityPage() {
 
                 </div>
             </>}
-            buttonName='Next'
-            onClick={() => handleSelect()}
+            buttonName={isLoadingClient ? 'Checking...' : "Next"}
+            disable={isLoadingClient}
+            onClick={() => onSubmit()}
         >
-        </LoginLayout>
+        </AuthLayout>
 
     </>)
 }
