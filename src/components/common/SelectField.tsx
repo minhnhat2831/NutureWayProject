@@ -85,7 +85,7 @@ export const SelectField: React.FC<BaseSelectProps> = ({
           classNames={{
             control: () =>
               cn(
-                'w-full px-3 py-2 border rounded-lg text-sm outline-none transition-all bg-white cursor-pointer',
+                'w-full px-3 py-2 border rounded-lg text-sm outline-none transition-all bg-white cursor-pointer font-serif',
                 'hover:border-gray-400',
                 error
                   ? 'border-red-500 ring-2 ring-red-500/20'
@@ -93,9 +93,9 @@ export const SelectField: React.FC<BaseSelectProps> = ({
                 disabled && 'bg-gray-50 cursor-not-allowed opacity-60'
               ),
             valueContainer: () => 'gap-1',
-            input: () => 'text-gray-900',
-            placeholder: () => 'text-gray-400 text-sm',
-            singleValue: () => 'text-gray-900 text-sm',
+            input: () => 'text-gray-900 font-serif',
+            placeholder: () => 'text-gray-400 text-sm font-serif',
+            singleValue: () => 'text-gray-900 text-sm font-serif',
             menu: () =>
               'mt-1 p-1 border border-gray-200 bg-white rounded-lg shadow-lg z-[9999]',
             menuList: () => 'space-y-0.5 max-h-[200px] overflow-y-auto',
@@ -118,8 +118,8 @@ export const SelectField: React.FC<BaseSelectProps> = ({
           styles={{ menuPortal: (base) => ({ ...base, zIndex: 99999 }) }}
           noOptionsMessage={() => 'No options'}
         />
-        {error && <p className="mt-1 text-xs text-red-500">{error}</p>}
-        {helperText && !error && <p className="mt-1 text-xs text-gray-500">{helperText}</p>}
+        {error && <p className="mt-1 text-xs text-red-500 font-serif">{error}</p>}
+        {helperText && !error && <p className="mt-1 text-xs text-gray-500 font-serif">{helperText}</p>}
       </div>
     );
 };
