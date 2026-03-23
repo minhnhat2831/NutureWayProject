@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router"
-import LoginLayout from "../components/LoginLayout"
+import AuthLayout from "../components/layout/AuthLayout"
 import { useState } from "react"
 import { Icons } from "@/components/common/Icons"
 import { ButtonField } from "@/components/common/ButtonField"
@@ -10,8 +10,6 @@ export default function AboutYouPage() {
     const method = useForm()
     const nav = useNavigate()
     const [open, setOpen] = useState(true)
-
-
 
     return (<>
         {open && <>
@@ -60,7 +58,7 @@ export default function AboutYouPage() {
         </>}
 
         {open === false && <>
-            <LoginLayout
+            <AuthLayout
                 method={method}
                 title='About you'
                 children={<>
@@ -102,7 +100,7 @@ export default function AboutYouPage() {
                 buttonName='Next'
                 onClick={() => nav('/payment')}
             >
-            </LoginLayout>
+            </AuthLayout>
         </>}
 
 

@@ -1,17 +1,17 @@
 import { InputForm } from "@/components/form/InputForm"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router"
-import LoginLayout from "../components/LoginLayout"
+import AuthLayout from "../components/layout/AuthLayout"
 
 export default function LoginPage() {
     const method = useForm()
     const nav = useNavigate()
 
     const handleLogin = () => {
-        nav('/send-otp', {state: { from: "login" }})
+        nav('/home')
     }
     return (<>
-        <LoginLayout
+        <AuthLayout
             method={method}
             title="Login"
             children={<>
@@ -35,7 +35,7 @@ export default function LoginPage() {
             buttonName="Login"
             onClick={() => handleLogin()}
         >
-        </LoginLayout>
+        </AuthLayout>
 
     </>)
 }
