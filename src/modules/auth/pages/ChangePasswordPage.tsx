@@ -1,15 +1,15 @@
 import { InputForm } from "@/components/form/InputForm"
-import { useForm } from "react-hook-form"
 import { useLocation, useNavigate } from "react-router"
-import LoginLayout from "../components/LoginLayout"
-import { useState } from "react"
+import AuthLayout from "../components/layout/AuthLayout"
+import useAuth from "../hooks/useAuth"
 
 export default function ChangePasswordPage() {
-    const method = useForm()
+    const { verifyPassword } = useAuth()
+    const { handlePassword, loading, method, success } = verifyPassword()
     const nav = useNavigate()
     const location = useLocation();
     const from = location.state?.from
-    const [success, isSuccess] = useState(false)
+
     const button = from === 'login'
         ? 'Next'
         : 'Update Password';
@@ -18,20 +18,17 @@ export default function ChangePasswordPage() {
         ? 'Create a password'
         : 'Set a new password';
 
-    const handlePassword = () => {
-        if (from === 'login') {
-            nav('/register')
-        } else if (from === 'forgot-password') {
-            isSuccess(true)
-        }
-    }
+    const subTitle = from === 'forgot-password'
+        ? 'Create a new password. Ensure it differs from previous ones for sercurity'
+        : "Thank you for verifying your email. Now let's create a password for your account"
 
     return (<>
         {success === false && <>
-            <LoginLayout
+            <AuthLayout
                 method={method}
                 title={title}
-                subTitle="Create a new password. Ensure it differs from previous ones for sercurity"
+                subTitle={subTitle}
+                disable={loading}
                 children={<>
                     <InputForm
                         type="password"
@@ -42,21 +39,21 @@ export default function ChangePasswordPage() {
                     </InputForm>
                     <InputForm
                         type="password"
-                        name="comfirmedPassword"
-                        label="Comfirmed Password"
+                        name="confirmPassword"
+                        label="Comfirm Password"
                         required
-                        placeholder="Comfirmed Password">
+                        placeholder="Comfirm Password">
                     </InputForm>
                 </>}
                 buttonName={button}
                 onClick={() => handlePassword()}
             >
-            </LoginLayout>
+            </AuthLayout>
         </>}
 
 
         {success && <>
-            <LoginLayout
+            <AuthLayout
                 method={method}
                 title="Password update"
                 subTitle="Your password has been updated"
@@ -64,7 +61,7 @@ export default function ChangePasswordPage() {
                 buttonName="Login"
                 onClick={() => nav('/login')}
             >
-            </LoginLayout>
+            </AuthLayout>
         </>}
     </>)
 }

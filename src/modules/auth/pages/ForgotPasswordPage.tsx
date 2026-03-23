@@ -1,14 +1,13 @@
 import { InputForm } from "@/components/form/InputForm"
-import { useForm } from "react-hook-form"
-import { useNavigate } from "react-router"
-import LoginLayout from "../components/LoginLayout"
+import AuthLayout from "../components/layout/AuthLayout"
+import useAuth from "../hooks/useAuth"
 
 export default function ForgotPasswordPage() {
-    const method = useForm()
-    const nav = useNavigate()
+    const { useforgotPassword } = useAuth()
+    const { method, isLoading, onSubmit } = useforgotPassword()
 
     return (<>
-        <LoginLayout
+        <AuthLayout
             method={method}
             title="Forgot password"
             subTitle="Please enter your email to reset the password"
@@ -20,9 +19,10 @@ export default function ForgotPasswordPage() {
                     required>
                 </InputForm>
             </>}
-            buttonName="Reset Password"
-            onClick={() =>  nav('/send-otp', {state: { from: "forgot-password" }})}
+            disable={isLoading}
+            buttonName={isLoading ? "Checking..." : "Reset Password"}
+            onClick={onSubmit}
         >
-        </LoginLayout>
+        </AuthLayout>
     </>)
 }
