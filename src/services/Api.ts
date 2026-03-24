@@ -21,6 +21,7 @@ export const API_ENDPOINT = {
 
     API_FORGOT_PASSWORD : `/auth/forgot-password`,
     API_RESET_PASSWORD : `/auth/reset-password`,
+    API_CHECK_RESET_PASSWORD : `/auth/check-reset-password`,
 
     API_AUTO_ADDRESS : `/address/autocomplete`,
     API_ADDRESS_ID : (id : string) => `/address/metadata/${id}`,

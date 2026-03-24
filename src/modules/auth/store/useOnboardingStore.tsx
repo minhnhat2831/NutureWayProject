@@ -33,7 +33,7 @@ interface OnboardingState {
     setOtpData: (data: OtpData) => void
     setVerifyData: (data: VerifyData) => void
     setPassword : (password : string) => void
-    setregisterData: (data: registerDetail) => void
+    setRegisterData: (data: registerDetail) => void
     reset: () => void
 }
 
@@ -48,6 +48,6 @@ export const useOnboardingStore = create<OnboardingState>((set) => ({
     setPassword: (password) => set({ password}),
     setOtpData: (data) => set({ otpData: data }),
     setVerifyData: (data) => set({ verifyData: data }),
-    setregisterData: (data) => set({ registerData : data}),
+    setRegisterData: (data) => set({ registerData : data}),
     reset: () => set({ email: '', otpData: null, verifyData: null }),
 }))

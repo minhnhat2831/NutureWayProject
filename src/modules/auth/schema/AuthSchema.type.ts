@@ -18,7 +18,8 @@ import type {
     sendOtpResponseSchema, 
     userResponseSchema, 
     verifiedRequestSchema, 
-    verifiedResponseSchema, 
+    verifiedResponseSchema,
+    addressParams, 
 } from './AuthSchema'
 
 export type loginRequest = z.infer<typeof loginRequestSchema>
@@ -47,3 +48,4 @@ export type addressListItemResponse = z.infer<typeof addressListItemResponseSche
 export type addressResponse = z.infer<typeof addressResponseSchema>
 export type addressDetail = z.infer<typeof addressDetailSchema>
 export type addressDetailResponse = z.infer<typeof addressDetailResponseSchema>
+export type addressParam = z.infer<typeof addressParams>

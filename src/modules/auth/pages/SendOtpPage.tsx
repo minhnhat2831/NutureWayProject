@@ -15,18 +15,19 @@ export default function SendOtpPage() {
         isLoadingVerify,
         sendOtp,
         verifyOtp,
+        checkResetPass
     } = useSendOtp()
     const setVerifyData = useOnboardingStore((s) => s.setVerifyData)
     const [otp, setOtp] = useState("")
     const location = useLocation();
     const from = location.state?.from
 
-    const title = from === 'login'
+    const title = from === 'register'
         ? 'Verify your email address'
         : 'Check your email';
 
     useEffect(() => {
-        if (email) {
+        if (email && from === 'register') {
             sendOtp().catch(() => { })
         }
     }, [])
@@ -34,7 +35,7 @@ export default function SendOtpPage() {
     const handleResend = async () => {
         try {
             await sendOtp()
-        } catch (err : any) { }
+        } catch (err: any) { }
     }
 
     const onSubmit = async () => {
@@ -43,10 +44,18 @@ export default function SendOtpPage() {
             return
         }
 
-        try {
-            const result = await verifyOtp(otp)
-            setVerifyData(result.data)
-        } catch (err: any) { }
+        if (from === 'register') {
+            try {
+                const result = await verifyOtp(otp)
+                setVerifyData(result.data)
+            } catch (err: any) { }
+            
+        }else{
+            try {
+                const result = await checkResetPass(otp)
+                setVerifyData(result.data)
+            } catch (err: any) { }
+        }
     }
 
     return (

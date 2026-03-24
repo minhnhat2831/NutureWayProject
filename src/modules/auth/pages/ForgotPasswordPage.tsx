@@ -3,8 +3,8 @@ import AuthLayout from "../components/layout/AuthLayout"
 import useAuth from "../hooks/useAuth"
 
 export default function ForgotPasswordPage() {
-    const { useforgotPassword } = useAuth()
-    const { method, isLoading, onSubmit } = useforgotPassword()
+    const { useForgotPassword } = useAuth()
+    const { method, isLoading, onSubmit } = useForgotPassword()
 
     return (<>
         <AuthLayout
