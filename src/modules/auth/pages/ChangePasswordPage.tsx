@@ -5,22 +5,22 @@ import useAuth from "../hooks/useAuth"
 
 export default function ChangePasswordPage() {
     const { verifyPassword } = useAuth()
-    const { handlePassword, loading, method, success } = verifyPassword()
+    const { handlePassword, loading, method, success, handleResetPassword } = verifyPassword()
     const nav = useNavigate()
     const location = useLocation();
     const from = location.state?.from
 
-    const button = from === 'login'
+    const button = from === 'register'
         ? 'Next'
         : 'Update Password';
 
-    const title = from === 'login'
+    const title = from === 'register'
         ? 'Create a password'
         : 'Set a new password';
 
-    const subTitle = from === 'forgot-password'
-        ? 'Create a new password. Ensure it differs from previous ones for sercurity'
-        : "Thank you for verifying your email. Now let's create a password for your account"
+    const subTitle = from === 'register'
+        ? "Thank you for verifying your email. Now let's create a password for your account"
+        : 'Create a new password. Ensure it differs from previous ones for sercurity'
 
     return (<>
         {success === false && <>
@@ -46,7 +46,7 @@ export default function ChangePasswordPage() {
                     </InputForm>
                 </>}
                 buttonName={button}
-                onClick={() => handlePassword()}
+                onClick={() => { from === 'register' ? handlePassword() : handleResetPassword() }}
             >
             </AuthLayout>
         </>}

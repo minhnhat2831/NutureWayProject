@@ -1,13 +1,12 @@
 import axiosInstance from "@/services/Axios";
-import type { forgotPasswordResponse, loginRequest, registerClientRequest, registerDoulaRequest, resetPasswordRequest, response, sendOtpResponse, userResponse, verifiedRequest, verifiedResponse } from "../schema/AuthSchema.type";
+import type { addressParam, addressResponse, forgotPasswordResponse, loginRequest, registerClientRequest, registerDoulaRequest, resetPasswordRequest, response, sendOtpResponse, userResponse, verifiedRequest, verifiedResponse } from "../schema/AuthSchema.type";
 import { API_ENDPOINT } from "@/services/Api";
 
 export const postLogin =
     async (data: loginRequest): Promise<userResponse> => {
         const response = await axiosInstance.post<userResponse>(
-            API_ENDPOINT.API_LOGIN, {
+            API_ENDPOINT.API_LOGIN,
             data
-        }
         )
         return response.data
     }
@@ -69,17 +68,43 @@ export const postRegisterDoula = async (data: registerDoulaRequest): Promise<use
 export const postForgotPassword = async (email: string): Promise<forgotPasswordResponse> => {
     const response = await axiosInstance.post<forgotPasswordResponse>(
         API_ENDPOINT.API_FORGOT_PASSWORD,
-        email
+        { email }
 
     )
     return response.data
 }
 
-export const postResetPassword = async (data: resetPasswordRequest): Promise<response> => {
+export const postResetPassword = async (
+    data: resetPasswordRequest,
+    verifyData: { action: string; token: string }
+): Promise<response> => {
     const response = await axiosInstance.post<response>(
-        API_ENDPOINT.API_RESET_PASSWORD,
-        data
+        API_ENDPOINT.API_RESET_PASSWORD, {
+        ...data,
+        ...verifyData
+    },
+        {
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${verifyData.token}`
+            }
+        }
 
+    )
+    return response.data
+}
+
+export const getAddress = async (params: addressParam): Promise<addressResponse> => {
+    const response = await axiosInstance.get<addressResponse>(
+        API_ENDPOINT.API_AUTO_ADDRESS,
+        { params }
+    )
+    return response.data
+}
+
+export const postCheckResetPassword = async (data: verifiedRequest): Promise<verifiedResponse> => {
+    const response = await axiosInstance.post<verifiedResponse>(
+        API_ENDPOINT.API_CHECK_RESET_PASSWORD, data
     )
     return response.data
 }

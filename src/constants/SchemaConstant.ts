@@ -7,7 +7,7 @@ export const NUMBER_REQUIRED = z.number().min(1, REQUIRED_MESSAGE)
 export const STRING_NULL_OR_OPTIONAL = z.string().nullable().optional()
 export const NUMBER_NULL_OR_OPTIONAL = z.number().nullable().optional()
 
-export const EMAIL_REQUIRED = z.string().email({ message: REQUIRED_MESSAGE }).min(1, REQUIRED_MESSAGE)
+export const EMAIL_REQUIRED = z.string().email().min(1, REQUIRED_MESSAGE)
 
 export const PAYLOAD_RESPONSE = z.object({
     message : z.string(),

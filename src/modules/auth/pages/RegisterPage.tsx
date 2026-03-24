@@ -16,13 +16,19 @@ export default function RegisterPage() {
     const { handleRegisterDetail, method } = useRegisterDetail()
     const { registerData } = useOnboardingStore()
 
+    // const ADDRESS_OPTIONS = data.map((i) => ({
+    //     value: i.id,
+    //     label: i.fullAddress
+    // })) ?? []
+
     useEffect(() => {
         method.setValue('firstName', registerData?.firstName ?? '')
         method.setValue('lastName', registerData?.lastName ?? '')
         method.setValue('middleName', registerData?.middleName ?? '')
         method.setValue('birthDate', registerData?.birthDate ?? '')
         method.setValue('addressId', registerData?.addressId ?? '')
-    },[method.setValue])
+    }, [method.setValue])
+
     return (<>
         <AuthLayout
             method={method}
@@ -51,7 +57,8 @@ export default function RegisterPage() {
                     label="Birthday"
                     required
                 />
-                <SelectForm 
+
+                <SelectForm
                     name="addressId"
                     label="Address"
                     required

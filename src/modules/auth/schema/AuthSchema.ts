@@ -144,15 +144,14 @@ export const checkPasswordSchema = registerRequestSchema.pick({
     password : true,
     confirmPassword : true
 }).superRefine((data, ctx) => {
-    if(data.password.length < 6 || data.password.length > 32){
+    if(!data.password || data.password.length < 6 || data.password.length > 32){
         ctx.addIssue({
             path : ['password'],
             message : "Password must be from 6 to 32 characters.",
             code : z.ZodIssueCode.custom,
         })
     }
-    console.log('check' ,isStrongPassword(data.password))
-    if(!isStrongPassword(data.password)){
+    if(!data.password || !isStrongPassword(data.password)){
         ctx.addIssue({
             path : ['password'],
             message : "Password must contain at least one uppercase, one lowercase, and one number character.",
@@ -176,7 +175,7 @@ export const registerDetailSchema = registerRequestSchema.pick({
     birthDate: true,
     addressId: true
 }).superRefine((data, ctx) => {
-    if(!isAgeGreaterThan18(data.birthDate)){
+    if(!data.birthDate || !isAgeGreaterThan18(data.birthDate)){
         ctx.addIssue({
             path : ['birthDate'],
             message : "Your age must be greater than 18.",
@@ -246,4 +245,8 @@ export const addressDetailSchema = z.object({
 
 export const addressDetailResponseSchema = PAYLOAD_RESPONSE.extend({
     data : addressDetailSchema
+})
+
+export const addressParams = z.object({
+    q : z.string()
 })

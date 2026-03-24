@@ -3,8 +3,8 @@ import { Icons } from "@/components/common/Icons"
 import useAuth from "../hooks/useAuth"
 
 export default function SelectIdentityPage() {
-    const { useRegiter } = useAuth()
-    const { method, setSelect, onSubmit, select, isLoadingClient } = useRegiter()
+    const { useRegister } = useAuth()
+    const { method, setSelect, onSubmit, select, isLoadingClient } = useRegister()
 
     return (<>
         <AuthLayout

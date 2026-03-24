@@ -1,19 +1,18 @@
 import { InputForm } from "@/components/form/InputForm"
-import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router"
 import AuthLayout from "../components/layout/AuthLayout"
+import useAuth from "../hooks/useAuth"
 
 export default function LoginPage() {
-    const method = useForm()
+    const { useLogin } = useAuth()
+    const { method, isLoading, onSubmit} = useLogin()
     const nav = useNavigate()
 
-    const handleLogin = () => {
-        nav('/home')
-    }
     return (<>
         <AuthLayout
             method={method}
             title="Login"
+            disable={isLoading}
             children={<>
                 <InputForm
                     name="email"
@@ -33,7 +32,7 @@ export default function LoginPage() {
                     onClick={() => nav('/forgot-password')}>Forgot password?</p>
             </>}
             buttonName="Login"
-            onClick={() => handleLogin()}
+            onClick={() => onSubmit()}
         >
         </AuthLayout>
 
