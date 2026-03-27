@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { useLocation } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 import { OtpTimer } from "@siamf/otp-timer"
 import OtpInput from "react-otp-input"
 import { toast } from "react-toastify"
@@ -9,15 +9,31 @@ import { useOnboardingStore } from "../store/useOnboardingStore"
 
 export default function SendOtpPage() {
     const { useSendOtp } = useAuth()
+    const nav = useNavigate()
+    const { email, setVerifyData, } = useOnboardingStore()
     const {
         method,
-        email,
         isLoadingVerify,
         sendOtp,
         verifyOtp,
         checkResetPass
-    } = useSendOtp()
-    const setVerifyData = useOnboardingStore((s) => s.setVerifyData)
+    } = useSendOtp({
+        onVerifySuccess(res) {
+            if (from === 'register') {
+                nav('/change-password', { state: { from: "register" } })
+            } else if (from === 'forgot-password') {
+                nav('/change-password', { state: { from: "forgot-password" } })
+            }
+            setVerifyData(res.data)
+        },
+        onCheckResrtSuccess(res) {
+            if (from === 'forgot-password') {
+                nav('/change-password', { state: { from: "forgot-password" } })
+            }
+            setVerifyData(res.data)
+        },
+    })
+    
     const [otp, setOtp] = useState("")
     const location = useLocation();
     const from = location.state?.from
@@ -27,10 +43,13 @@ export default function SendOtpPage() {
         : 'Check your email';
 
     useEffect(() => {
+        if(!email) {
+            nav('/')
+        }
         if (email && from === 'register') {
             sendOtp().catch(() => { })
         }
-    }, [])
+    }, [email, nav])
 
     const handleResend = async () => {
         try {
@@ -45,16 +64,12 @@ export default function SendOtpPage() {
         }
 
         if (from === 'register') {
-            try {
-                const result = await verifyOtp(otp)
-                setVerifyData(result.data)
-            } catch (err: any) { }
-            
-        }else{
-            try {
-                const result = await checkResetPass(otp)
-                setVerifyData(result.data)
-            } catch (err: any) { }
+            const result = await verifyOtp(otp)
+            setVerifyData(result.data)
+
+        } else {
+            const result = await checkResetPass(otp)
+            setVerifyData(result.data)
         }
     }
 
@@ -92,7 +107,7 @@ export default function SendOtpPage() {
 
                 <OtpTimer
                     minutes={0}
-                    seconds={5}
+                    seconds={59}
                     onResend={handleResend}
                     renderText={(props) => (
                         <p className="font-serif flex justify-center">

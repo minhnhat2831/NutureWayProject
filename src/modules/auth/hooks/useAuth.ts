@@ -1,14 +1,16 @@
 import { useForm } from "react-hook-form"
-import { type addressResponse, type checkEmailRequest, type checkPassword, type loginRequest, type registerClientRequest, type registerDetail, type registerDoulaRequest, type resetPasswordRequest } from "../schema/AuthSchema.type"
+import { type addressResponse, type checkEmailRequest, type checkPassword, type loginRequest, type registerClientRequest, type registerDetail, type resetPasswordRequest } from "../schema/AuthSchema.type"
 import { useMutation, useQuery } from "@tanstack/react-query"
-import { getAddress, postCheckEmailorPhone, postCheckResetPassword, postForgotPassword, postLogin, postRegisterClient, postResetPassword, postSendOtp, postVerifyOtp } from "../service/Api"
+import { getAddress, postCheckResetPassword, postForgotPassword, postLogin, postResetPassword, postSendOtp, postVerifyOtp } from "../service/Api"
 import { toast } from "react-toastify"
 import { useOnboardingStore } from "../store/useOnboardingStore"
 import { useLocation, useNavigate } from "react-router"
-import { checkEmailRequestSchema, checkPasswordSchema, loginRequestSchema, registerClientRequestSchema, registerDetailSchema, registerDoulaRequestSchema } from "../schema/AuthSchema"
+import { checkEmailRequestSchema, checkPasswordSchema, loginRequestSchema, registerDetailSchema } from "../schema/AuthSchema"
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react"
 import { handleError } from "@/utils/ErrorHandle"
+import useCheckEmailFormData from "./useCheckEmailFormData"
+import useFormData from "./useFormData"
 
 export default function useAuth() {
     const nav = useNavigate()
@@ -16,39 +18,22 @@ export default function useAuth() {
         email,
         verifyData,
         setOtpData,
-        setVerifyData,
         setEmail,
         setPassword,
         setRegisterData,
         registerData,
         password } = useOnboardingStore()
 
+    const { method, checkEmail, isLoading } = useCheckEmailFormData()
+
     const useCheckEmail = () => {
-        const method = useForm<checkEmailRequest>({
-            resolver: zodResolver(checkEmailRequestSchema),
-            mode: 'onTouched',
-            defaultValues: {
-                email: ""
-            }
-        })
-
-        const mutation = useMutation({
-            mutationFn: async (email: string) => {
-                return await postCheckEmailorPhone(email)
-            },
-            onSuccess: (_, email) => {
-                setEmail(email)
-            },
-            onError: (err: unknown) => handleError(err)
-        })
-
         const onSubmit = async () => {
             const email = method.getValues("email")
             if (!email) {
                 toast.error("Vui lòng nhập email")
                 return
             }
-            const result = await mutation.mutateAsync(email)
+            const result = await checkEmail(email)
 
             if (result?.data === true) {
                 nav('/login')
@@ -59,29 +44,21 @@ export default function useAuth() {
 
         return {
             method,
-            isLoading: mutation.isPending,
+            isLoading: isLoading,
             onSubmit
         }
     }
 
-    const useSendOtp = () => {
-        const method = useForm<checkEmailRequest>({
-            resolver: zodResolver(checkEmailRequestSchema),
-            mode: 'onBlur',
-            defaultValues: {
-                email: ''
-            }
-        })
-        const location = useLocation();
-        const from = location.state?.from
-
+    const useSendOtp = (options: {
+        onVerifySuccess?: (res: any) => void
+        onCheckResrtSuccess?: (res: any) => void
+    }) => {
         const sendMutation = useMutation({
             mutationFn: async () => {
                 return await postSendOtp(email)
             },
             onSuccess: (res) => {
                 setOtpData(res.data)
-                toast.success(res?.message)
             },
             onError: (err: unknown) => handleError(err)
         })
@@ -91,13 +68,7 @@ export default function useAuth() {
                 return await postVerifyOtp({ email, otp })
             },
             onSuccess: (res) => {
-                toast.success(res?.message)
-                if (from === 'register') {
-                    nav('/change-password', { state: { from: "register" } })
-                } else if (from === 'forgot-password') {
-                    nav('/change-password', { state: { from: "forgot-password" } })
-                }
-                setVerifyData(res.data)
+                options?.onVerifySuccess?.(res)
             },
             onError: (err: unknown) => handleError(err)
         })
@@ -107,28 +78,24 @@ export default function useAuth() {
                 return await postCheckResetPassword({ email, otp })
             },
             onSuccess: (res) => {
-                toast.success(res?.message)
-                if (from === 'forgot-password') {
-                    nav('/change-password', { state: { from: "forgot-password" } })
-                }
-                setVerifyData(res.data)
+                options?.onCheckResrtSuccess?.(res)
             },
             onError: (err: unknown) => handleError(err)
         })
 
         return {
             method,
-            email,
             isLoadingSend: sendMutation.isPending,
             isLoadingVerify: verifyMutation.isPending,
             sendOtp: sendMutation.mutateAsync,
             verifyOtp: verifyMutation.mutateAsync,
-            verifyData: verifyMutation.data,
             checkResetPass: checkResetMutation.mutateAsync
         }
     }
 
-    const verifyPassword = () => {
+    const verifyPassword = (options?: {
+        onSuccess: (res: any) => void
+    }) => {
         const method = useForm<checkPassword>({
             resolver: zodResolver(checkPasswordSchema),
             mode: 'onBlur',
@@ -137,17 +104,14 @@ export default function useAuth() {
                 confirmPassword: ''
             }
         })
-        const [loading, isLoading] = useState(false)
         const [success, isSuccess] = useState(false)
         const location = useLocation();
         const from = location.state?.from
 
         const handlePassword = async () => {
-            isLoading(true)
             const password = method.getValues('password')
             const isValid = await method.trigger(["password", "confirmPassword"]);
             if (isValid && password !== undefined) {
-                isLoading(false)
                 setPassword(password)
                 if (from === 'register') {
                     nav('/register')
@@ -170,6 +134,7 @@ export default function useAuth() {
             },
             onSuccess: (res) => {
                 toast.success(res?.message)
+                options?.onSuccess?.(res)
             },
             onError: (err: unknown) => handleError(err)
         })
@@ -189,7 +154,6 @@ export default function useAuth() {
                     rePassword: password,
                     newPassword: confirmPassword
                 }
-                isLoading(false)
                 await passwordMutation.mutateAsync({
                     data,
                     verifyData
@@ -206,7 +170,6 @@ export default function useAuth() {
 
         return {
             method,
-            loading,
             success,
             handlePassword,
             handleResetPassword
@@ -243,7 +206,6 @@ export default function useAuth() {
                     birthDate,
                     addressId
                 }
-
                 setRegisterData(data)
                 nav('/select-identity')
             } else {
@@ -258,59 +220,15 @@ export default function useAuth() {
     }
 
     const useRegister = () => {
-        type form = registerClientRequest | registerDoulaRequest
-        const [select, setSelect] = useState('client')
-        const method = useForm<form>({
-            resolver: zodResolver(select === 'client' ? registerClientRequestSchema : registerDoulaRequestSchema),
-            mode: 'onBlur',
-            defaultValues: select === 'client' ? {
-                email: '',
-                password: '',
-                firstName: '',
-                middleName: '',
-                lastName: '',
-                birthDate: '',
-                addressId: ''
-            } : {
-                email: '',
-                password: '',
-                firstName: '',
-                middleName: '',
-                lastName: '',
-                birthDate: '',
-                addressId: '',
-                title: '',
-                description: '',
-                qualifications: [],
-                categoryIds: [],
-                photos: [],
-                subscription: {
-                    id: '',
-                    priceName: ''
-                },
-                voucherId: '',
-                stripePaymentMethodId: ''
-            }
-        })
-
-        const registerClientMutation = useMutation({
-            mutationFn: async ({
-                data,
-                verifyData
-            }: {
-                data: registerClientRequest
-                verifyData: { action: string; token: string }
-            }) => {
-                return await postRegisterClient(data, verifyData)
-            },
-            onSuccess: (res) => {
-                toast.success(res.message)
-            },
-            onError: (err: unknown) => handleError(err)
-        })
+        const { 
+            method, 
+            registerClient, 
+            select, 
+            setSelect,
+            isLoadingClient,
+        } = useFormData()
 
         const onSubmit = async () => {
-
             const data: registerClientRequest = {
                 email: email,
                 password: password,
@@ -326,12 +244,11 @@ export default function useAuth() {
                 return
             }
             if (select === "client") {
-                await registerClientMutation.mutateAsync({
+                await registerClient({
                     data,
                     verifyData
                 })
                 nav('/login')
-
             } else {
                 nav('/about-you')
             }
@@ -342,7 +259,7 @@ export default function useAuth() {
             select,
             setSelect,
             onSubmit,
-            isLoadingClient: registerClientMutation.isPending
+            isLoadingClient,
         }
     }
 
@@ -390,7 +307,7 @@ export default function useAuth() {
             queryFn: async () => {
                 try {
                     return await getAddress({
-                        q: q
+                        q
                     })
                 } catch (err: unknown) {
                     handleError(err)

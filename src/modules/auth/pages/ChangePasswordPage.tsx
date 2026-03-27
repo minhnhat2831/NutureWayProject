@@ -2,11 +2,14 @@ import { InputForm } from "@/components/form/InputForm"
 import { useLocation, useNavigate } from "react-router"
 import AuthLayout from "../components/layout/AuthLayout"
 import useAuth from "../hooks/useAuth"
+import { useEffect } from "react"
+import { useOnboardingStore } from "../store/useOnboardingStore"
 
 export default function ChangePasswordPage() {
     const { verifyPassword } = useAuth()
-    const { handlePassword, loading, method, success, handleResetPassword } = verifyPassword()
+    const { handlePassword, method, success, handleResetPassword } = verifyPassword()
     const nav = useNavigate()
+    const { email } = useOnboardingStore()
     const location = useLocation();
     const from = location.state?.from
 
@@ -22,13 +25,18 @@ export default function ChangePasswordPage() {
         ? "Thank you for verifying your email. Now let's create a password for your account"
         : 'Create a new password. Ensure it differs from previous ones for sercurity'
 
+    useEffect(() => {
+        if (!email) {
+            nav('/')
+        }
+    }, [email, nav])
+    
     return (<>
         {success === false && <>
             <AuthLayout
                 method={method}
                 title={title}
                 subTitle={subTitle}
-                disable={loading}
                 children={<>
                     <InputForm
                         type="password"
