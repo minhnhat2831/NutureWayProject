@@ -1,11 +1,22 @@
 import AuthLayout from "../components/layout/AuthLayout"
 import { Icons } from "@/components/common/Icons"
 import useAuth from "../hooks/useAuth"
+import { useEffect } from "react"
+import { useNavigate } from "react-router"
+import { useOnboardingStore } from "../store/useOnboardingStore"
 
 export default function SelectIdentityPage() {
     const { useRegister } = useAuth()
     const { method, setSelect, onSubmit, select, isLoadingClient } = useRegister()
+    const nav = useNavigate()
+    const { email } = useOnboardingStore()
 
+    useEffect(() => {
+        if (!email) {
+            nav('/')
+        }
+    }, [email, nav])
+    
     return (<>
         <AuthLayout
             method={method}

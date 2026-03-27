@@ -1,15 +1,23 @@
-import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router"
 import AuthLayout from "../components/layout/AuthLayout"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Icons } from "@/components/common/Icons"
 import { ButtonField } from "@/components/common/ButtonField"
 import { InputForm } from "@/components/form/InputForm"
+import { useOnboardingStore } from "../store/useOnboardingStore"
+import { useForm } from "react-hook-form"
 
 export default function AboutYouPage() {
     const method = useForm()
+    const { email } = useOnboardingStore()
     const nav = useNavigate()
     const [open, setOpen] = useState(true)
+
+    useEffect(() => {
+        if (!email) {
+            nav('/')
+        }
+    }, [email, nav])
 
     return (<>
         {open && <>
@@ -65,8 +73,9 @@ export default function AboutYouPage() {
                     <div className="w-full h-auto bg-white border border-gray-300 rounded-xl px-3 py-5">
                         <p className="text-2xl font-serif">Your title</p>
                         <p className="text-sm text-gray-400 font-serif mb-2">Introduce your role in a short sentence</p>
-                        <InputForm 
+                        <InputForm
                             name="title"
+                            required
                             placeholder="Short introdution"
                         />
                     </div>
@@ -83,13 +92,13 @@ export default function AboutYouPage() {
 
                     <div className="w-full h-auto bg-white border border-gray-300  rounded-xl px-3 py-5">
                         <p className="text-2xl font-serif">Pictures of your service</p>
-            
+
                         <div className="flex flex-row gap-2">
                             <div className="w-20 h-20 border border-gray-300">
-                                <img src={'https://placehold.co/600x600/png'}/>
+                                <img src={'https://placehold.co/600x600/png'} />
                             </div>
                             <div className="w-20 h-20 border border-gray-300">
-                                <img src={'https://placehold.co/600x600/png'}/>
+                                <img src={'https://placehold.co/600x600/png'} />
                             </div>
                             <div className="w-20 h-20 border border-gray-300">
                                 <p className="h-20 w-20 flex justify-center items-center"><Icons.addIcon /></p>
@@ -102,8 +111,5 @@ export default function AboutYouPage() {
             >
             </AuthLayout>
         </>}
-
-
-
     </>)
 }
