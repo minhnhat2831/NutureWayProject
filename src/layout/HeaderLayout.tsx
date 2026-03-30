@@ -46,7 +46,7 @@ function IconSlot({ icon, onClick }: IconSlotProps) {
     return (
         <button
             type="button"
-            className="shrink-0 flex items-center justify-center"
+            className="shrink-0 flex items-center justify-center cursor-pointer"
             onClick={onClick}
         >
             {icon}
@@ -61,8 +61,8 @@ function SearchBar({
     placeholder = "Search...",
 }: SearchBarProps) {
     return (
-        <div className="flex items-center gap-2 bg-[#e2e2e2] rounded-2xl h-10 px-3">
-            <span className="shrink-0 text-gray-400">
+        <div className="flex items-center gap-2 bg-[#ebe8e8] rounded-2xl h-10 px-3">
+            <span className="shrink-0 text-gray-500">
                 <Icons.searchIcon />
             </span>
 
@@ -125,7 +125,7 @@ export default function Header({
     const hasRightIcons = iconR1 || iconR2;
     return (
         <header className="bg-white py-3 px-4 flex flex-col gap-2">
-            <div className="flex flex-row items-center gap-2">
+            <div className="flex flex-row justify-between items-center gap-2">
                 {hasLeftIcons && (
                     <div className="flex flex-row items-center gap-2 shrink-0">
                         {showBack && (
@@ -160,6 +160,7 @@ export default function Header({
 
                 {hasRightIcons && (
                     <div className="flex flex-row items-center gap-2 shrink-0">
+                        
                         {iconR1 && <IconSlot icon={iconR1} onClick={onClickIconR1} />}
                         {iconR2 && <IconSlot icon={iconR2} onClick={onClickIconR2} />}
                     </div>

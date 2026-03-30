@@ -111,7 +111,62 @@ function calendar() {
         <path d="M6 11H10V18H6" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
         <path d="M10 14.5H7" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
+}
 
+function star() {
+    return <svg width="30" height="30" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9.99938 2.08337L7.45229 7.28237L1.66663 8.12133L5.85783 12.2188L4.85596 17.9167L9.99938 15.1747L15.1439 17.9167L14.1494 12.2188L18.3333 8.12133L12.5797 7.28237L9.99938 2.08337Z" fill="#FFBE0B" />
+    </svg>
+}
+
+function expandRight() {
+    return <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 18L15 12L9 6" stroke="#848484" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+}
+
+function starNoColor() {
+    return <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11.9993 2.5L8.9428 8.7388L2 9.74555L7.02945 14.6625L5.8272 21.5L11.9993 18.2096L18.1727 21.5L16.9793 14.6625L22 9.74555L15.0956 8.7388L11.9993 2.5Z" stroke="#0A0A0A" stroke-width="1.5" stroke-linejoin="round" />
+    </svg>
+}
+
+function share() {
+    return <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11.9958 3H3V21H12" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M16.5 16.5L21 12L16.5 7.5" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M8 11.9958H21" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+}
+
+function security() {
+    return <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 4.62782L12.0043 2L21 4.62782V10.0169C21 15.6811 17.3751 20.7097 12.0013 22.5002C6.62605 20.7097 3 15.68 3 10.0143V4.62782Z" stroke="#0A0A0A" stroke-width="1.5" stroke-linejoin="round" />
+        <path d="M7.5 11.5L11 15L17 9" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+}
+
+function bell() {
+    return <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M20.7938 16.4944C20.2735 15.5981 19.5 13.0622 19.5 9.75C19.5 7.76088 18.7098 5.85322 17.3033 4.4467C15.8968 3.04018 13.9891 2.25 12 2.25C10.0109 2.25 8.10323 3.04018 6.69671 4.4467C5.29019 5.85322 4.50001 7.76088 4.50001 9.75C4.50001 13.0631 3.72564 15.5981 3.20532 16.4944C3.07245 16.7222 3.00201 16.9811 3.00111 17.2449C3.0002 17.5086 3.06886 17.768 3.20017 17.9967C3.33147 18.2255 3.52077 18.4156 3.74899 18.5478C3.9772 18.6801 4.23625 18.7498 4.50001 18.75H8.32595C8.49899 19.5967 8.95916 20.3577 9.62864 20.9042C10.2981 21.4507 11.1358 21.7492 12 21.7492C12.8642 21.7492 13.7019 21.4507 14.3714 20.9042C15.0409 20.3577 15.501 19.5967 15.6741 18.75H19.5C19.7637 18.7496 20.0226 18.6798 20.2507 18.5475C20.4788 18.4151 20.668 18.225 20.7992 17.9963C20.9303 17.7676 20.9989 17.5083 20.998 17.2446C20.997 16.9809 20.9266 16.7222 20.7938 16.4944ZM12 20.25C11.5348 20.2499 11.0812 20.1055 10.7014 19.8369C10.3216 19.5683 10.0344 19.1886 9.87939 18.75H14.1206C13.9656 19.1886 13.6784 19.5683 13.2986 19.8369C12.9189 20.1055 12.4652 20.2499 12 20.25ZM4.50001 17.25C5.22189 16.0087 6.00001 13.1325 6.00001 9.75C6.00001 8.1587 6.63215 6.63258 7.75737 5.50736C8.88259 4.38214 10.4087 3.75 12 3.75C13.5913 3.75 15.1174 4.38214 16.2427 5.50736C17.3679 6.63258 18 8.1587 18 9.75C18 13.1297 18.7763 16.0059 19.5 17.25H4.50001Z" fill="#0A0A0A" />
+    </svg>
+}
+
+function help() {
+    return <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 22C14.7614 22 17.2614 20.8807 19.0711 19.0711C20.8807 17.2614 22 14.7614 22 12C22 9.2386 20.8807 6.7386 19.0711 4.92893C17.2614 3.11929 14.7614 2 12 2C9.2386 2 6.7386 3.11929 4.92893 4.92893C3.11929 6.7386 2 9.2386 2 12C2 14.7614 3.11929 17.2614 4.92893 19.0711C6.7386 20.8807 9.2386 22 12 22Z" stroke="#0A0A0A" stroke-width="1.5" stroke-linejoin="round" />
+        <path d="M12 14.3124V12.3124C13.6568 12.3124 15 10.9692 15 9.31238C15 7.65553 13.6568 6.31238 12 6.31238C10.3432 6.31238 9 7.65553 9 9.31238" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 18.8124C12.6904 18.8124 13.25 18.2527 13.25 17.5624C13.25 16.872 12.6904 16.3124 12 16.3124C11.3097 16.3124 10.75 16.872 10.75 17.5624C10.75 18.2527 11.3097 18.8124 12 18.8124Z" fill="#0A0A0A" />
+    </svg>
+}
+
+function info() {
+    return <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 22C14.7614 22 17.2614 20.8807 19.0711 19.0711C20.8807 17.2614 22 14.7614 22 12C22 9.2386 20.8807 6.7386 19.0711 4.92893C17.2614 3.11929 14.7614 2 12 2C9.2386 2 6.7386 3.11929 4.92893 4.92893C3.11929 6.7386 2 9.2386 2 12C2 14.7614 3.11929 17.2614 4.92893 19.0711C6.7386 20.8807 9.2386 22 12 22Z" stroke="#0A0A0A" stroke-width="1.5" stroke-linejoin="round" />
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M12 5.5C12.6904 5.5 13.25 6.05965 13.25 6.75C13.25 7.44035 12.6904 8 12 8C11.3097 8 10.75 7.44035 10.75 6.75C10.75 6.05965 11.3097 5.5 12 5.5Z" fill="#0A0A0A" />
+        <path d="M12.25 17V10H11.75H11.25" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M10.5 17H14" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
 }
 
 export const Icons = {
@@ -129,4 +184,12 @@ export const Icons = {
     homeIcon: home,
     messageIcon: message,
     settingIcon: setting,
+    starIcon: star,
+    expandRightIcon: expandRight,
+    starNoColorIcon: starNoColor,
+    shareIcon: share,
+    securityIcon: security,
+    bellIcon: bell,
+    helpIcon: help,
+    infoIcon: info
 }

@@ -7,7 +7,6 @@ import useAuth from "../hooks/useAuth";
 export default function LandingPage() {
     const { useCheckEmail } = useAuth()
     const { isLoading, method, onSubmit } = useCheckEmail()
-
     return (<>
         <FormProvider {...method}>
             <div className="h-screen flex justify-end flex-col items-center bg-[url(/bg.jpg)] bg-cover bg-center">
@@ -45,14 +44,11 @@ export default function LandingPage() {
                             variant="secondary"
                             type="button">
                             <Icons.googleIcon />Continue with Google</ButtonField>
-
                         <p className="px-4 text-center text-sm overflow-hidden font-serif">By continuing, you acknowledge that you have read and agreed to our <span className="text-blue-700 font-bold underline cursor-pointer"> Terms and Conditions</span> and <span className="text-blue-700 font-bold underline cursor-pointer">Privacy Statement</span></p>
 
                     </form>
                 </div>
             </div>
-
-
         </FormProvider>
     </>)
 }
