@@ -11,6 +11,7 @@ import { useState } from "react"
 import { handleError } from "@/utils/ErrorHandle"
 import useCheckEmailFormData from "./useCheckEmailFormData"
 import useFormData from "./useFormData"
+import { useAuthen } from "@/context/AuthContext"
 
 export default function useAuth() {
     const nav = useNavigate()
@@ -220,10 +221,10 @@ export default function useAuth() {
     }
 
     const useRegister = () => {
-        const { 
-            method, 
-            registerClient, 
-            select, 
+        const {
+            method,
+            registerClient,
+            select,
             setSelect,
             isLoadingClient,
         } = useFormData()
@@ -323,6 +324,7 @@ export default function useAuth() {
     }
 
     const useLogin = () => {
+        const { setAuth } = useAuthen()
         const method = useForm<loginRequest>({
             resolver: zodResolver(loginRequestSchema),
             mode: 'onChange',
@@ -343,7 +345,16 @@ export default function useAuth() {
         })
 
         const onSubmit = method.handleSubmit(async (data) => {
-            await mutation.mutateAsync(data)
+            const response = await mutation.mutateAsync(data)
+            if (!response?.data) return
+
+            setAuth({
+                user: response?.data?.user,
+                role: response?.data?.role,
+                accessToken: response?.data?.token.accessToken,
+                refreshToken: response?.data?.token.refreshToken
+            })
+
             nav('/home')
         })
 
