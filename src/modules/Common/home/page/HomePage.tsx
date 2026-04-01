@@ -3,7 +3,7 @@ import CategoriesCard from "@/components/shared/CategoriesCard";
 import DoulasCard from "@/components/shared/DoulasCard";
 import { Icons } from "@/components/common/Icons";
 import { FooterClient, FooterDoula } from "@/layout/FooterLayout";
-import Header from "@/layout/HeaderLayout";
+import Header, { SearchBar } from "@/layout/HeaderLayout";
 import { Scrollbar } from 'react-scrollbars-custom';
 import { useNavigate } from "react-router";
 import { useAuthen } from "@/context/AuthContext";
@@ -33,8 +33,15 @@ export default function HomePage() {
     const nav = useNavigate()
     const { role } = useAuthen()
     return (<>
-        <Header title="NurtureWave" iconR1={<Icons.userIcon />} showSearch searchPlaceholder="Search for doulas, articles, anything,..." />
-        <div className="h-screen bg-white px-2">
+        <Header title="NurtureWave" iconR1={<Icons.userIcon />} />
+        <div className="h-screen z-0 bg-white px-2">
+            <SearchBar
+                onClickSearch={() => nav('/home/search')}
+                value={''}
+                onChange={() => { }}
+                onClear={() => { }}
+                placeholder={'Search for doulas, articles, anything,...'}
+            />
             <Scrollbar style={{ width: '100%', height: '100%' }}>
                 <p className="px-2 text-2xl text-gray-400 font-serif mt-5">Popular Categories</p>
                 <Scrollbar style={{ width: '100%', height: 190 }}>
@@ -67,7 +74,7 @@ export default function HomePage() {
                 </Scrollbar>
 
                 <p className="px-2 text-2xl text-gray-400 font-serif mt-5">Articles</p>
-                <Scrollbar style={{ width: '100%', height: 250 }}>
+                <Scrollbar style={{ width: '100%', height: 270 }}>
                     <div className="gap-4 flex flex-row my-5 px-2">
                         {artical.map((al, index) => (
                             <ArticleCard

@@ -1,6 +1,5 @@
 import { forwardRef, type InputHTMLAttributes } from 'react';
 import { cn } from '@/lib/cn';
-import { Icons } from '../common/Icons';
 
 export interface BaseDatePickerProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
   label?: string;
@@ -35,10 +34,6 @@ export const DatePickerField = forwardRef<HTMLInputElement, BaseDatePickerProps>
             )}
             {...props}
           />
-          
-          <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
-            <Icons.calendarIcon />
-          </div>
         </div>
 
         {error && <p className="mt-1.5 text-sm text-red-600 font-serif">{error}</p>}

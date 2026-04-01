@@ -1,54 +1,58 @@
 import PageLayout from "@/layout/PageLayout";
 import { Route, Routes } from "react-router";
-import ArticlePage from "../article/page/ArticlePage";
-import HomePage from "../home/page/HomePage";
-import SettingPage from "../setting/page/SettingPage";
-import CarePage from "../care/page/CarePage";
-import ChatPage from "../chat/page/ChatPage";
-import SearchPage from "../search/page/SearchPage";
+import LandingPage from "../../../pages/LandingPage"
+import LoginPage from "@/pages/LoginPage";
+import RegisterPage from "@/pages/RegisterPage";
+import ForgotPasswordPage from "@/pages/ForgotPasswordPage";
+import AboutYouPage from "@/modules/auth/pages/AboutYouPage";
+import PaymentPage from "@/modules/auth/pages/PaymentPage";
 
-export default function PageRouter() {
+export default function AuthRouter() {
     return (<>
         <Routes>
             <Route path="/"
                 element={
                     <PageLayout>
-                        <HomePage />
+                        <LandingPage />
                     </PageLayout>
                 }>
             </Route>
-            <Route path="/article"
+
+            <Route path="/login"
                 element={
                     <PageLayout>
-                        <ArticlePage />
+                        <LoginPage />
                     </PageLayout>
                 }>
             </Route>
-            <Route path="/settings"
+
+            <Route path="/register"
                 element={
                     <PageLayout>
-                        <SettingPage />
+                        <RegisterPage />
                     </PageLayout>
                 }>
             </Route>
-            <Route path="/care"
+            <Route path="/forgot-password"
                 element={
                     <PageLayout>
-                        <CarePage />
+                        <ForgotPasswordPage />
                     </PageLayout>
                 }>
             </Route>
-            <Route path="/message"
+
+            <Route path="/about-you"
                 element={
                     <PageLayout>
-                        <ChatPage />
+                        <AboutYouPage />
                     </PageLayout>
                 }>
             </Route>
-            <Route path="/search"
+
+            <Route path="/payment"
                 element={
                     <PageLayout>
-                        <SearchPage />
+                        <PaymentPage />
                     </PageLayout>
                 }>
             </Route>

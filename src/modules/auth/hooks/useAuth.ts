@@ -30,10 +30,7 @@ export default function useAuth() {
     const useCheckEmail = () => {
         const onSubmit = async () => {
             const email = method.getValues("email")
-            if (!email) {
-                toast.error("Vui lòng nhập email")
-                return
-            }
+
             const result = await checkEmail(email)
 
             if (result?.data === true) {
@@ -228,7 +225,7 @@ export default function useAuth() {
             setSelect,
             isLoadingClient,
         } = useFormData()
-
+        
         const onSubmit = async () => {
             const data: registerClientRequest = {
                 email: email,

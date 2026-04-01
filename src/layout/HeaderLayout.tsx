@@ -12,6 +12,7 @@ interface HeaderProps {
     onSearchChange?: (value: string) => void;
     onSearchClear?: () => void;
     searchPlaceholder?: string;
+    onClickSearch? : () => void
 
     iconR1?: ReactNode
     iconR2?: ReactNode
@@ -34,6 +35,7 @@ interface SearchBarProps {
     onChange: (value: string) => void;
     onClear: () => void;
     placeholder?: string;
+    onClickSearch? : () => void
 }
 
 const alignClass: Record<NonNullable<HeaderProps["titleAlign"]>, string> = {
@@ -54,12 +56,13 @@ function IconSlot({ icon, onClick }: IconSlotProps) {
     );
 }
 
-function SearchBar({
+export const SearchBar = ({
     value,
     onChange,
     onClear,
+    onClickSearch,
     placeholder = "Search...",
-}: SearchBarProps) {
+}: SearchBarProps) => {
     return (
         <div className="flex items-center gap-2 bg-[#ebe8e8] rounded-2xl h-10 px-3">
             <span className="shrink-0 text-gray-500">
@@ -70,6 +73,7 @@ function SearchBar({
                 type="text"
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
+                onClick={onClickSearch}
                 placeholder={placeholder}
                 className="flex-1 bg-transparent outline-none text-sm text-gray-700 placeholder:text-gray-400"
             />
@@ -96,6 +100,7 @@ export default function Header({
     onSearchChange,
     onSearchClear,
     searchPlaceholder = 'Search...',
+    onClickSearch,
     iconR1,
     iconR2,
     iconL1,
@@ -124,7 +129,7 @@ export default function Header({
     const hasLeftIcons = showBack || iconL1 || iconL2;
     const hasRightIcons = iconR1 || iconR2;
     return (
-        <header className="bg-white py-3 px-4 flex flex-col gap-2">
+        <header className="bg-white py-3 px-4 flex flex-col gap-2 z-20">
             <div className="flex flex-row justify-between items-center gap-2">
                 {hasLeftIcons && (
                     <div className="flex flex-row items-center gap-2 shrink-0">
@@ -142,6 +147,7 @@ export default function Header({
                 {showSearch && !title && (
                     <div className="flex-1">
                         <SearchBar
+                            onClickSearch={onClickSearch}
                             value={searchQuery}
                             onChange={handleSearchChange}
                             onClear={handleSearchClear}
