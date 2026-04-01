@@ -2,12 +2,12 @@ import { useFormContext, Controller, type FieldValues, type Path } from 'react-h
 import { InputField, type BaseInputProps } from '../common/InputField';
 
 type FormControler<T extends FieldValues> = {
-  name: Path<T>;
-  type? : string
+    name: Path<T>;
+    type?: string
 };
 
 type FormInputProps<T extends FieldValues> = FormControler<T> &
-  Omit<BaseInputProps, 'error' | 'name'>;
+    Omit<BaseInputProps, 'error' | 'name'>;
 
 
 export function InputForm<T extends FieldValues>({
@@ -25,8 +25,10 @@ export function InputForm<T extends FieldValues>({
                     {...field}
                     type={type}
                     onChange={(e) => {
-                        const value = e.target.value
-                        field.onChange(value === '' ? undefined : (type === 'number' ? Number(value) : value))
+                        const value = e.target.value;
+                        field.onChange(
+                            type === 'number' && value !== '' ? Number(value) : value
+                        );
                     }}
                     error={fieldState.error?.message}
                     {...rest}

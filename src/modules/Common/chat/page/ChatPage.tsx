@@ -12,7 +12,7 @@ const MESSAGES = [
 
 const INBOX = [
     { avatar : 'https://i.pravatar.cc/150?img=10', title : 'Pauline Hand requested your service', text : 'Tap to view and respond', haveRequest : true},
-    { avatar : 'https://i.pravatar.cc/150?img=25', title : 'Pauline Hand requested your service', text : 'I can come visit your home at ...', haveRequest : true},
+    { avatar : 'https://i.pravatar.cc/150?img=25', title : 'Pauline Hand requested your service', text : 'Tap to view and respond', haveRequest : true},
 ]
 const TABS = ['Chat', 'Inbox']
 
@@ -67,6 +67,7 @@ export default function ChatPage() {
                             key={index}
                             avatar={care.avatar}
                             title={care.title}
+                            subTitle={care.text}
                             haveRequest={care.haveRequest}
                             showExpandRight
                             onClick={() => { }}

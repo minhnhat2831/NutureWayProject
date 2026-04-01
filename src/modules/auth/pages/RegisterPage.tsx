@@ -5,7 +5,6 @@ import { SelectForm } from "@/components/form/SelectForm";
 import useAuth from "../hooks/useAuth";
 import { useOnboardingStore } from "../store/useOnboardingStore";
 import { useEffect } from "react";
-import { useNavigate } from "react-router";
 
 const ADDRESS_OPTION = [
     { value: '675966dc-0614-cc23-63b9-c26e338a492d', label: '228 Lennox Street' },
@@ -15,14 +14,8 @@ const ADDRESS_OPTION = [
 export default function RegisterPage() {
     const { useRegisterDetail } = useAuth()
     const { handleRegisterDetail, method } = useRegisterDetail()
-    const { registerData, email } = useOnboardingStore()
-    const nav = useNavigate()
-    
-    useEffect(() => {
-        if (!email) {
-            nav('/')
-        }
-    }, [email, nav])
+    const { registerData } = useOnboardingStore()
+ 
     // const ADDRESS_OPTIONS = data.map((i) => ({
     //     value: i.id,
     //     label: i.fullAddress

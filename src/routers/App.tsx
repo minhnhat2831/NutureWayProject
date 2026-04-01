@@ -1,6 +1,7 @@
+import AuthRouter from "@/container/auth/routers/router"
 import { AuthProvider } from "@/context/AuthContext"
-import AuthRouter from "@/modules/auth/routers/router"
-import PageRouter from "@/modules/Common/routers/router"
+
+import PageRouter from "@/modules/common/routers/router"
 import { Route, Routes } from "react-router"
 
 function App() {

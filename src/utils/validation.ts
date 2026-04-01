@@ -19,3 +19,8 @@ export const isAgeGreaterThan18 = (birthDate: string | Date) => {
 
     return age >= 18
 }
+
+export const validateEmail = (email : string) => {
+  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regex.test(email);
+}

@@ -1,23 +1,15 @@
 import { InputForm } from "@/components/form/InputForm"
 import AuthLayout from "../components/layout/AuthLayout"
 import { Icons } from "@/components/common/Icons"
-import { useOnboardingStore } from "../store/useOnboardingStore"
 import { useNavigate } from "react-router"
-import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 
 export default function PaymentPage() {
     const method = useForm()
-    const { email } = useOnboardingStore()
     const nav = useNavigate()
-    useEffect(() => {
-        if (!email) {
-            nav('/')
-        }
-    }, [email, nav])
 
     const handleSubmit = () => {
-        nav('/home')
+        nav('/login')
     }
     return (<>
         <AuthLayout
