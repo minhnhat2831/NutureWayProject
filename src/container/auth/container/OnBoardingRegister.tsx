@@ -46,7 +46,7 @@ export default function OnBoardingRegister() {
     const handleNext = async () => {
 
         const fields = STEP_FIELDS[step]
-                console.log(fields)
+
         const isValid = await method.trigger(fields)
         if (!isValid) return
 

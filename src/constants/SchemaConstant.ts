@@ -31,3 +31,22 @@ export const PAYLOAD_PICURE = z.object({
     }),
     createdAt : z.string()
 }).optional
+
+export const PARAMS = z.object({
+    page : z.number().optional(),
+    limit : z.number().optional(),
+    offset : z.number().optional(),
+    sort : z.string().optional(),
+    search : z.string().optional()
+})
+
+export const METADATA = z.object({
+    page : z.number().optional(),
+    limit : z.number().optional(),
+    totalPages : z.number().optional(),
+    totalCount : z.number().optional(),
+    hasNextPage : z.boolean()
+})
+
+export type PARAMS_TYPE = z.infer<typeof PARAMS>
+export type METADAT_TYPE = z.infer<typeof METADATA>

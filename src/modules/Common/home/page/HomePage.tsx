@@ -48,6 +48,7 @@ export default function HomePage() {
                     <div className="gap-4 flex flex-row flex-nnowrap my-5 px-2">
                         {category.map((cate, index) => (
                             <CategoriesCard
+                                loading
                                 key={index}
                                 text={cate.text}
                                 icons={cate.icon}
