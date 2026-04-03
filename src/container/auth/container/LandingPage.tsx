@@ -51,7 +51,8 @@ export default function LandingPageContainer() {
                         <hr className="bg-gray-300 h-1 w-full px-4" />
                         <ButtonField
                             variant="secondary"
-                            type="button">
+                            type="button"
+                            onClick={() => nav('/home')}>
                             Continue with Apple</ButtonField>
                         <ButtonField
                             variant="secondary"

@@ -25,5 +25,13 @@ export const API_ENDPOINT = {
 
     API_AUTO_ADDRESS : `/address/autocomplete`,
     API_ADDRESS_ID : (id : string) => `/address/metadata/${id}`,
+
+    //Category
+    API_CATEGORY : `/categories`,
+    API_CATEGORY_ID : (id : string) => `/categories/${id}`,
+    API_CATEGORY_BY_SLUG : (slug : string) =>`/categories/by-slug/${slug}`,
+
+    //Article
+    API_ARTICLE : `/articles`
     
 }

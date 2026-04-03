@@ -1,11 +1,12 @@
 import PageLayout from "@/layout/PageLayout";
 import { Route, Routes } from "react-router";
 import ArticlePage from "../article/page/ArticlePage";
-import HomePage from "../home/page/HomePage";
+
 import SettingPage from "../setting/page/SettingPage";
 import CarePage from "../care/page/CarePage";
 import ChatPage from "../chat/page/ChatPage";
 import SearchPage from "../search/page/SearchPage";
+import HomePage from "@/pages/HomePage";
 
 export default function PageRouter() {
     return (<>
