@@ -42,7 +42,7 @@ export default function AuthLayout({
                         <div className="mt-auto">
                             <ButtonField
                                 disabled={disable}
-                                type="button"
+                                type="submit"
                                 fullWidth
                                 onClick={onClick}
                             >

@@ -1,9 +1,9 @@
 import PageLayout from "@/layout/PageLayout";
 import { Route, Routes } from "react-router";
 import LandingPage from "../../../pages/LandingPage"
-import LoginPage from "@/pages/LoginPage";
-import RegisterPage from "@/pages/RegisterPage";
-import ForgotPasswordPage from "@/pages/ForgotPasswordPage";
+import LoginPage from "@/pages/auth/LoginPage";
+import RegisterPage from "@/pages/auth/RegisterPage";
+import ForgotPasswordPage from "@/pages/auth/ForgotPasswordPage";
 import AboutYouPage from "@/modules/auth/pages/AboutYouPage";
 import PaymentPage from "@/modules/auth/pages/PaymentPage";
 

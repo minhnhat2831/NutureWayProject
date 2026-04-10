@@ -37,6 +37,7 @@ export default function LandingPageContainer() {
                         <InputForm
                             name="email"
                             placeholder="Email"
+                            disabled={isLoading}
                             required
                         >
                         </InputForm>
@@ -51,8 +52,7 @@ export default function LandingPageContainer() {
                         <hr className="bg-gray-300 h-1 w-full px-4" />
                         <ButtonField
                             variant="secondary"
-                            type="button"
-                            onClick={() => nav('/home')}>
+                            type="button">
                             Continue with Apple</ButtonField>
                         <ButtonField
                             variant="secondary"

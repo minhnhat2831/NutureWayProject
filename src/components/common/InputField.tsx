@@ -3,6 +3,7 @@ import { cn } from '@/lib/cn';
 
 export interface BaseInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
+  insideLabel? : string
   error?: string;
   helperText?: string;
   containerClassName?: string;
@@ -15,6 +16,7 @@ export const InputField = forwardRef<HTMLInputElement, BaseInputProps>(
     {
       label,
       error,
+      insideLabel,
       helperText,
       className,
       containerClassName,
@@ -33,6 +35,7 @@ export const InputField = forwardRef<HTMLInputElement, BaseInputProps>(
             {required && <span className="text-red-500 ml-0.5">*</span>}
           </label>
         )}
+        {insideLabel && <label className={'absolute left-7 block text-[10px] font-medium text-gray-700 mb-1.5 font-serif'}>{insideLabel}</label>}
         <input
           ref={ref}
           disabled={disabled}

@@ -1,4 +1,4 @@
-import { METADATA, PARAMS, PAYLOAD_RESPONSE } from '@/constants/SchemaConstant'
+import { METADATA, PARAMS, PAYLOAD_PICURE, PAYLOAD_RESPONSE } from '@/constants/SchemaConstant'
 import * as z from 'zod'
 
 export const articleParamsSchema = PARAMS.extend({
@@ -10,7 +10,7 @@ export const articleListResponseSchema = z.object({
     id: z.string(),
     name: z.string(),
     title: z.string(),
-    picture: z.string(),
+    picture: PAYLOAD_PICURE,
     content: z.string(),
     status: z.string(),
     slug: z.string(),
