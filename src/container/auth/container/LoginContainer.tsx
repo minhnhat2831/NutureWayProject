@@ -18,6 +18,7 @@ export default function LoginContainer(){
                     name="email"
                     label="Email"
                     placeholder="Email"
+                    disabled={isLoading}
                     required>
                 </InputForm>
                 <InputForm
@@ -25,6 +26,7 @@ export default function LoginContainer(){
                     name="password"
                     label="Password"
                     required
+                    disabled={isLoading}
                     placeholder="Password">
                 </InputForm>
                 <p

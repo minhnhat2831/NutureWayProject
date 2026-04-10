@@ -4,9 +4,11 @@ import { Icons } from "../common/Icons";
 interface ComponentCardProps {
     iconL1?: ReactNode
     avatar? : string
+    img? : string
     title: string
+    subSubTitle? : string
     subTitle?: string
-    onClick: () => void
+    onClick?: () => void
     iconR1? : ReactNode
 
     containerStyle?: string
@@ -16,6 +18,7 @@ interface ComponentCardProps {
     showExpandRight?: boolean
     showTextRight?: boolean
     showRateStar? : boolean
+    showTextLine? : boolean
     haveRequest? : boolean
 
     textRight? : string
@@ -26,9 +29,11 @@ export default function ComponentCard({
     iconL1,
     iconR1,
     avatar,
+    img,
     onClick,
     subTitle,
     title,
+    subSubTitle,
     containerStyle,
     iconStyle,
     imgStyle,
@@ -36,6 +41,7 @@ export default function ComponentCard({
     showTextRight = false,
     showRateStar = false,
     haveRequest = false,
+    showTextLine = false,
     rateStar,
     textRight
 }: ComponentCardProps) {
@@ -49,9 +55,13 @@ export default function ComponentCard({
                 {iconL1}
                 {<img src={avatar} className={`rounded-full ${imgStyle}`} />}
             </div>
-            <div className="font-serif text-left flex-1 truncate ml-5">
-                <p className="text-black text-lg wrap-break-words whitespace-normal">{title}</p>
-                <p className="text-gray-400 text-sm">{subTitle}</p>
+            <div className={img ? `w-14 h-14 bg-blue-100 flex justify-center items-center rounded-full ${iconStyle}` : ''}>
+                {<img src={img} className={`rounded-2xl ${imgStyle}`} />}
+            </div>
+            <div className={showTextLine ? 'text-left flex-1 flex-wrap ml-5 border-b-gray-200 border-b pb-2' : `text-left flex-1 flex-wrap ml-5`}>
+                <p className="text-black font-medium text-md leading-5 wrap-break-words whitespace-normal">{title}</p>
+                <p className="text-black  font-normal text-sm leading-4">{subSubTitle}</p>
+                <p className="text-gray-400 font-normal text-sm leading-4">{subTitle}</p>
             </div>
 
             {showExpandRight && !showTextRight && !showRateStar && <Icons.expandRightIcon />}

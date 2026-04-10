@@ -1,7 +1,9 @@
 import AuthRouter from "@/container/auth/routers/router"
 import { AuthProvider } from "@/context/AuthContext"
+import ProtectedRoute from "@/context/ProtectedRoute"
+import PublicRoute from "@/context/PublicRoute"
+import PageRouter from "@/pages/routers/routers"
 
-import PageRouter from "@/modules/common/routers/router"
 import { Route, Routes } from "react-router"
 
 function App() {
@@ -12,11 +14,15 @@ function App() {
 
         <Route path="/*" element={
           <AuthProvider>
-            <AuthRouter />
+            <PublicRoute>
+              <AuthRouter />
+            </PublicRoute>
           </AuthProvider>} />
         <Route path='/home/*' element={
           <AuthProvider>
-            <PageRouter />
+            <ProtectedRoute>
+              <PageRouter />
+            </ProtectedRoute>
           </AuthProvider>} />
         <Route path="/client/*" element={<></>} />
         <Route path="/doulas/*" element={<></>} />

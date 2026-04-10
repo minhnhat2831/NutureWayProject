@@ -22,7 +22,7 @@ export default function DoulaContainer() {
                         subTitle={doula.subText}
                         rateStar={doula.rate}
                         img={doula.img}
-                        onClick={() => alert(`u click ${index}`)}
+                        onClick={() => nav(`/home/doula-profile/${index}`)}
                     />
                 ))}
             </div>

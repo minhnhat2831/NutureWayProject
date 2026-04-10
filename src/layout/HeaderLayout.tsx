@@ -129,7 +129,7 @@ export default function Header({
     const hasLeftIcons = showBack || iconL1 || iconL2;
     const hasRightIcons = iconR1 || iconR2;
     return (
-        <header className="bg-white py-3 px-4 flex flex-col gap-2 z-20">
+        <header className="bg-white py-3 px-4 flex flex-col gap-2 z-2">
             <div className="flex flex-row justify-between items-center gap-2">
                 {hasLeftIcons && (
                     <div className="flex flex-row items-center gap-2 shrink-0">
@@ -158,7 +158,7 @@ export default function Header({
 
                 {title && (
                     <p
-                        className={`flex-1 font-bold text-2xl font-serif ${alignClass[titleAlign]}`}
+                        className={`flex-1 font-medium text-lg leading-5 ${alignClass[titleAlign]}`}
                     >
                         {title}
                     </p>
