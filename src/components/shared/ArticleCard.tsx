@@ -11,8 +11,8 @@ export default function ArticleCard({
 }:ArticleCard){
     return(<>
         <div className="min-w-40 h-40 rounded-3xl relative shadow-lg bg-violet-100" onClick={onClick}>
-            <img src={img} className="w-full h-full rounded-3xl bg-orange-200 hover:bg-orange-300 cursor-pointer" />
-            <p className="absolute bottom-0 p-4 wrap-break-word font-serif font-bold">{text}</p>
+            <img src={img ?? ''} className="w-full h-full rounded-3xl bg-orange-200 opacity-50 hover:bg-orange-300 cursor-pointer" />
+            <p className="absolute bottom-0 p-4 wrap-break-word font-serif font-bold text-black">{text}</p>
         </div>
     </>)
 }

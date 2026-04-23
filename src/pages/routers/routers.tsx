@@ -7,17 +7,19 @@ import HomePage from "@/pages/HomePage";
 import ArticleDetailPage from "../ArticleDetailPage";
 import SearchPage from "../SearchPage";
 import ChatDetailPage from "../chat/ChatDetailPage";
-import CareDetailPage from "../care/CareDetailPage";
 import DoulaProfilePage from "../doula/DoulaProfilePage";
-import CarePackageDetailPage from "../care/CarePackageDetailPage";
 import HelpCenterPage from "../settings/HelpCenterPage";
-import ImageAndVideoPage from "../care/ImageAndVideoPage";
-import DocumentPage from "../care/DoucumentPage";
-import MedicationPage from "../care/MedicationPage";
-import NotesPage from "../care/NotesContainer";
-import NutritrionPage from "../care/NutritionPage";
+import ImageAndVideoPage from "../detail/ImageAndVideoPage";
+import DocumentPage from "../detail/DoucumentPage";
+import MedicationPage from "../detail/MedicationPage";
+import NotesPage from "../detail/NotesContainer";
+import NutritrionPage from "../detail/NutritionPage";
 import PackageDetailPage from "../care/PackageDetailPage";
 import AppointmentPage from "../appointment/AppointmentPage";
+import NotFoundPage from "../NotFoundPage";
+import CategoryDetailPage from "../CategoryDetailPage";
+import CareRoute from "@/container/care/router/route";
+import DetailPage from "../detail/DetailPage";
 
 export default function PageRouter() {
     return (<>
@@ -29,7 +31,21 @@ export default function PageRouter() {
                     </PageLayout>
                 }>
             </Route>
-            <Route path="/article"
+            <Route path="/package"
+                element={
+                    <PageLayout>
+                        <CareRoute />
+                    </PageLayout>
+                }>
+            </Route>
+            <Route path="/category/:id"
+                element={
+                    <PageLayout>
+                        <CategoryDetailPage />
+                    </PageLayout>
+                }>
+            </Route>
+            <Route path="/article/:id"
                 element={
                     <PageLayout>
                         <ArticleDetailPage />
@@ -63,59 +79,45 @@ export default function PageRouter() {
                     </PageLayout>
                 }>
             </Route>
-            <Route path="/care/:id"
+            <Route path="/detail/:id"
                 element={
                     <PageLayout>
-                        <CareDetailPage />
+                        <DetailPage />
                     </PageLayout>
                 }>
             </Route>
-            <Route path="/care/care-package"
-                element={
-                    <PageLayout>
-                        <CarePackageDetailPage />
-                    </PageLayout>
-                }>
-            </Route>
-            <Route path="/care/care-package"
-                element={
-                    <PageLayout>
-                        <CarePackageDetailPage />
-                    </PageLayout>
-                }>
-            </Route>
-            <Route path="/care/imageVideo"
+            <Route path="/detail/imageVideo"
                 element={
                     <PageLayout>
                         <ImageAndVideoPage />
                     </PageLayout>
                 }>
             </Route>
-            <Route path="/care/documents"
+            <Route path="/detail/documents"
                 element={
                     <PageLayout>
                         <DocumentPage />
                     </PageLayout>}>
             </Route>
-            <Route path="/care/medication"
+            <Route path="/detail/medication/:id"
                 element={
                     <PageLayout>
                         <MedicationPage />
                     </PageLayout>}>
             </Route>
-            <Route path="/care/notes"
+            <Route path="/detail/notes"
                 element={
                     <PageLayout>
                         <NotesPage />
                     </PageLayout>}>
             </Route>
-            <Route path="/care/nutrition"
+            <Route path="/detail/nutrition"
                 element={
                     <PageLayout>
                         <NutritrionPage />
                     </PageLayout>}>
             </Route>
-            <Route path="/care/package-detail/:id"
+            <Route path="/package-details/:id"
                 element={
                     <PageLayout>
                         <PackageDetailPage />
@@ -148,6 +150,12 @@ export default function PageRouter() {
                     </PageLayout>
                 }>
             </Route>
+            <Route path="*"
+                element={
+                    <PageLayout>
+                        <NotFoundPage />
+                    </PageLayout>
+                } />
         </Routes>
     </>)
 }

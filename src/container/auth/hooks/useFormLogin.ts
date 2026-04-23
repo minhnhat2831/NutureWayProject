@@ -7,9 +7,11 @@ import { toast } from "react-toastify"
 import { handleError } from "@/utils/ErrorHandle"
 import { postLogin } from "../service/Api"
 import { useNavigate } from "react-router"
+import { useAuthen } from "@/context/AuthContext"
 
 export default function useFormLogin() {
     const nav = useNavigate()
+    const { setAuth } = useAuthen()
     const method = useForm<loginRequest>({
         resolver: zodResolver(loginRequestSchema),
         mode: 'onChange',
@@ -29,6 +31,12 @@ export default function useFormLogin() {
             localStorage.setItem("role", (res?.data?.role))
             localStorage.setItem("accessToken", (res?.data?.tokens?.accessToken))
             localStorage.setItem("refreshToken", (res?.data?.tokens?.refreshToken))
+            setAuth({
+                role : res?.data?.role,
+                accessToken : res?.data?.tokens?.accessToken,
+                refreshToken : res?.data?.tokens?.refreshToken,
+                user : res?.data?.user
+            })
             nav('/home')
         },
         onError: (err: unknown) => handleError(err)

@@ -1,4 +1,5 @@
 import { Icons } from "@/components/common/Icons";
+import type { doulaListDetailResponse } from "../schema/DoulaSchema.type";
 
 function RowItem({ label, process, value }: { label: string, process: string, value: string }) {
     return (
@@ -12,10 +13,10 @@ function RowItem({ label, process, value }: { label: string, process: string, va
     )
 }
 
-export default function SectionDoulaReview() {
+export default function SectionDoulaReview({ data }: { data: doulaListDetailResponse }) {
     return (<>
         <div className="flex flex-row items-center">
-            <p className="text-xl font-serif">4.96</p><Icons.starIcon />
+            <p className="text-xl font-serif">{data.starAvg}</p><Icons.starIcon />
         </div>
         <div className="flex flex-col gap-2 border-b my-4">
             <RowItem label="Expertise" value="4.5" process='40' />

@@ -12,7 +12,7 @@ interface HeaderProps {
     onSearchChange?: (value: string) => void;
     onSearchClear?: () => void;
     searchPlaceholder?: string;
-    onClickSearch? : () => void
+    onClickSearch?: () => void
 
     iconR1?: ReactNode
     iconR2?: ReactNode
@@ -22,12 +22,18 @@ interface HeaderProps {
     onClickIconR2?: () => void
     onClickIconL1?: () => void
     onClickIconL2?: () => void
+
+    disableIconR1? : boolean
+    disableIconR2? : boolean
+    disableIconL1? : boolean
+    disableIconL2? : boolean
 }
 
 
 interface IconSlotProps {
     icon: ReactNode;
     onClick?: () => void;
+    disable? : boolean
 }
 
 interface SearchBarProps {
@@ -35,7 +41,7 @@ interface SearchBarProps {
     onChange: (value: string) => void;
     onClear: () => void;
     placeholder?: string;
-    onClickSearch? : () => void
+    onClickSearch?: () => void
 }
 
 const alignClass: Record<NonNullable<HeaderProps["titleAlign"]>, string> = {
@@ -44,12 +50,13 @@ const alignClass: Record<NonNullable<HeaderProps["titleAlign"]>, string> = {
     right: "text-right",
 };
 
-function IconSlot({ icon, onClick }: IconSlotProps) {
+function IconSlot({ icon, onClick, disable }: IconSlotProps) {
     return (
         <button
             type="button"
             className="shrink-0 flex items-center justify-center cursor-pointer"
             onClick={onClick}
+            disabled={disable}
         >
             {icon}
         </button>
@@ -108,7 +115,11 @@ export default function Header({
     onClickIconR1,
     onClickIconR2,
     onClickIconL1,
-    onClickIconL2
+    onClickIconL2,
+    disableIconR1,
+    disableIconR2,
+    disableIconL1,
+    disableIconL2,
 }: HeaderProps) {
     const nav = useNavigate();
 
@@ -136,11 +147,11 @@ export default function Header({
                         {showBack && (
                             <IconSlot
                                 icon={<Icons.arrowLeftIcon />}
-                                onClick={() => nav(-1)}
+                                onClick={() => searchValue ? nav('/home') : nav(-1)}
                             />
                         )}
-                        {iconL1 && <IconSlot icon={iconL1} onClick={onClickIconL1} />}
-                        {iconL2 && <IconSlot icon={iconL2} onClick={onClickIconL2} />}
+                        {iconL1 && <IconSlot icon={iconL1} onClick={onClickIconL1} disable={disableIconL1} />}
+                        {iconL2 && <IconSlot icon={iconL2} onClick={onClickIconL2} disable={disableIconL2} />}
                     </div>
                 )}
 
@@ -156,19 +167,20 @@ export default function Header({
                     </div>
                 )}
 
-                {title && (
+                {title && (<>
                     <p
                         className={`flex-1 font-medium text-lg leading-5 ${alignClass[titleAlign]}`}
                     >
                         {title}
                     </p>
+                    {!hasRightIcons && <div className="w-8" />}
+                </>
                 )}
 
                 {hasRightIcons && (
                     <div className="flex flex-row items-center gap-2 shrink-0">
-                        
-                        {iconR1 && <IconSlot icon={iconR1} onClick={onClickIconR1} />}
-                        {iconR2 && <IconSlot icon={iconR2} onClick={onClickIconR2} />}
+                        {iconR1 && <IconSlot icon={iconR1} onClick={onClickIconR1} disable={disableIconR1} />}
+                        {iconR2 && <IconSlot icon={iconR2} onClick={onClickIconR2} disable={disableIconR2} />}
                     </div>
                 )}
             </div>

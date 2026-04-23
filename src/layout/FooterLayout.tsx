@@ -21,7 +21,7 @@ export const FooterClient = () => {
     const { pathname } = useLocation()
 
     return (
-        <footer className="min-h-20 z-20 bg-white py-3 px-10 flex flex-row justify-between items-center gap-2">
+        <footer className="min-h-20 z-20 sticky bottom-0 bg-white py-3 px-10 flex flex-row justify-between items-center gap-2">
             {FOOTER_CONSTANTS_CLIENT.map((i) => {
                 const isActive = pathname === i.href
 
@@ -44,9 +44,8 @@ export const FooterClient = () => {
 export const FooterDoula = () => {
     const nav = useNavigate()
     const { pathname } = useLocation()
-
     return (
-        <footer className="min-h-20 bg-white py-3 px-4 flex flex-row justify-between items-center gap-2">
+        <footer className="min-h-20 z-20 bg-white py-3 px-4 flex flex-row justify-between items-center gap-2">
             {FOOTER_CONSTANTS_DOULA.map((i) => {
                 const isActive = pathname === i.href
 

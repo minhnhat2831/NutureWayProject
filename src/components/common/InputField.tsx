@@ -35,12 +35,12 @@ export const InputField = forwardRef<HTMLInputElement, BaseInputProps>(
             {required && <span className="text-red-500 ml-0.5">*</span>}
           </label>
         )}
-        {insideLabel && <label className={'absolute left-7 block text-[10px] font-medium text-gray-700 mb-1.5 font-serif'}>{insideLabel}</label>}
+        {insideLabel && <label className={'absolute left-7 block text-[11px] text-gray-700 my-0.5 font-semibold'}>{insideLabel}</label>}
         <input
           ref={ref}
           disabled={disabled}
           className={cn(
-            'w-full px-3 py-2.5 p-3 border rounded-lg text-sm outline-none transition-all bg-white font-serif',
+            'w-full h-12 px-3 py-2.5 p-3 border rounded-lg text-sm outline-none transition-all bg-white font-serif',
             'text-gray-900 placeholder:text-gray-400',
             'focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:bg-blue-50',
             error

@@ -12,7 +12,7 @@ export const NUMBER_NULL_OR_OPTIONAL = z.number().nullable().optional()
 export const EMAIL_REQUIRED = z.string({error : REQUIRED_MESSAGE}).min(1, REQUIRED_MESSAGE)
 
 export const PAYLOAD_RESPONSE = z.object({
-    message : z.string(),
+    message : z.string()
 })
 
 export const PAYLOAD_PICURE = z.object({
@@ -30,7 +30,7 @@ export const PAYLOAD_PICURE = z.object({
         })
     }),
     createdAt : z.string()
-}).optional
+})
 
 export const PARAMS = z.object({
     page : z.number().optional(),

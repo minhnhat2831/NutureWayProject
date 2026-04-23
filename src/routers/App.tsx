@@ -26,7 +26,6 @@ function App() {
           </AuthProvider>} />
         <Route path="/client/*" element={<></>} />
         <Route path="/doulas/*" element={<></>} />
-
       </Routes>
 
     </>

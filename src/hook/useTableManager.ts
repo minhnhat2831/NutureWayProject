@@ -11,12 +11,14 @@ interface UseTableManagerOptions<TData> {
     metadata: METADAT_TYPE
   }>
   defaultLimit?: number
+  enabled? : boolean
 }
 
 export const useTableManager = <TData>({
   queryKey,
   queryFn,
   defaultLimit = 10,
+  enabled = true
 }: UseTableManagerOptions<TData>) => {
   const { params, setParams } = useQueryParams()
 
@@ -67,6 +69,7 @@ export const useTableManager = <TData>({
         sort,
       }),
     placeholderData: undefined,
+    enabled : enabled
   })
 
   const metadata = query.data?.metadata
@@ -104,7 +107,7 @@ export const useTableManager = <TData>({
     setLimit,
     setSearch,
     setSort,
-    
+    enabled,
     // Show loading skeleton during initial load and data fetching (sort, filter, etc)
     isLoading: query.isLoading || query.isFetching,
   }
