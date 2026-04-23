@@ -131,6 +131,12 @@ function starNoColor() {
     </svg>
 }
 
+function starDisable() {
+    return <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M11.9993 2.5L8.9428 8.7388L2 9.74555L7.02945 14.6625L5.8272 21.5L11.9993 18.2096L18.1727 21.5L16.9793 14.6625L22 9.74555L15.0956 8.7388L11.9993 2.5Z" stroke="#CECECE" stroke-width="1.5" stroke-linejoin="round" />
+    </svg>
+}
+
 function share() {
     return <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M11.9958 3H3V21H12" stroke="#0A0A0A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -292,6 +298,27 @@ export const babyMobileIcon = () => {
     </svg>
 }
 
+export const alertTriangle = () => {
+    return <svg width="24" height="24" viewBox="0 0 24 24" fill="red" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 8.99996V13M12 17H12.01M10.29 3.85996L1.82001 18C1.64537 18.3024 1.55297 18.6453 1.55199 18.9945C1.55102 19.3437 1.6415 19.6871 1.81443 19.9905C1.98737 20.2939 2.23673 20.5467 2.53771 20.7238C2.8387 20.9009 3.1808 20.9961 3.53001 21H20.47C20.8192 20.9961 21.1613 20.9009 21.4623 20.7238C21.7633 20.5467 22.0126 20.2939 22.1856 19.9905C22.3585 19.6871 22.449 19.3437 22.448 18.9945C22.447 18.6453 22.3546 18.3024 22.18 18L13.71 3.85996C13.5317 3.56607 13.2807 3.32308 12.9812 3.15444C12.6817 2.98581 12.3437 2.89722 12 2.89722C11.6563 2.89722 11.3183 2.98581 11.0188 3.15444C10.7193 3.32308 10.4683 3.56607 10.29 3.85996Z" stroke="#0A0A0A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+}
+
+export const editPen = () => {
+    return <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21.3113 6.87844L17.1216 2.68969C16.9823 2.55037 16.8169 2.43985 16.6349 2.36444C16.4529 2.28904 16.2578 2.25023 16.0608 2.25023C15.8638 2.25023 15.6687 2.28904 15.4867 2.36444C15.3047 2.43985 15.1393 2.55037 15 2.68969L3.43969 14.25C3.2998 14.3888 3.18889 14.554 3.11341 14.736C3.03792 14.918 2.99938 15.1133 3.00001 15.3103V19.5C3.00001 19.8978 3.15804 20.2794 3.43935 20.5607C3.72065 20.842 4.10218 21 4.50001 21H8.68969C8.88675 21.0006 9.08196 20.9621 9.26399 20.8866C9.44602 20.8111 9.61122 20.7002 9.75001 20.5603L17.5941 12.7172L17.9203 14.0203L14.4703 17.4694C14.3296 17.61 14.2505 17.8007 14.2504 17.9997C14.2503 18.1986 14.3292 18.3894 14.4699 18.5302C14.6105 18.6709 14.8012 18.75 15.0001 18.7501C15.1991 18.7502 15.3899 18.6712 15.5306 18.5306L19.2806 14.7806C19.3724 14.6891 19.4388 14.5753 19.4734 14.4505C19.5081 14.3256 19.5098 14.1939 19.4784 14.0681L18.8316 11.4797L21.3113 9C21.4506 8.86071 21.5611 8.69534 21.6365 8.51332C21.7119 8.33131 21.7507 8.13623 21.7507 7.93922C21.7507 7.74221 21.7119 7.54713 21.6365 7.36512C21.5611 7.18311 21.4506 7.01773 21.3113 6.87844ZM4.50001 16.8103L7.18969 19.5H4.50001V16.8103ZM9.00001 19.1897L4.81032 15L12.75 7.06031L16.9397 11.25L9.00001 19.1897ZM18 10.1897L13.8113 6L16.0613 3.75L20.25 7.93969L18 10.1897Z" fill="#0A0A0A" />
+    </svg>
+}
+
+export const switchChange = () => {
+    return <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21 9.5H3" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M15 3.5L21 9.5" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M3.39948 14.5H21.3995" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M3.39948 14.5L9.3995 20.5" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+}
+
 export const Icons = {
     buttonIcon: button,
     calendarIcon: calendar,
@@ -308,6 +335,7 @@ export const Icons = {
     messageIcon: message,
     settingIcon: setting,
     starIcon: star,
+    starDisableIcon: starDisable,
     expandRightIcon: expandRight,
     starNoColorIcon: starNoColor,
     shareIcon: share,
@@ -325,5 +353,8 @@ export const Icons = {
     pillIcon: pillIcon,
     pregnancyIcon: pregnancyIcon,
     babyIcon: babyIcon,
-    babyMobileIcon : babyMobileIcon
+    babyMobileIcon: babyMobileIcon,
+    alertTriangleIcon: alertTriangle,
+    editPenIcon: editPen,
+    switchChangeIcon : switchChange
 }

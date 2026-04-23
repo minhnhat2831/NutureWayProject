@@ -5,7 +5,7 @@ interface ComponentCardProps {
     iconL1?: ReactNode
     avatar? : string
     img? : string
-    title: string
+    title?: string
     subSubTitle? : string
     subTitle?: string
     onClick?: () => void
@@ -14,6 +14,9 @@ interface ComponentCardProps {
     containerStyle?: string
     iconStyle?: string
     imgStyle? : string
+    avatarStyle? : string
+    titleStyle? : string
+    textStyle? : string
 
     showExpandRight?: boolean
     showTextRight?: boolean
@@ -33,6 +36,9 @@ export default function ComponentCard({
     onClick,
     subTitle,
     title,
+    titleStyle,
+    textStyle,
+    avatarStyle,
     subSubTitle,
     containerStyle,
     iconStyle,
@@ -53,14 +59,14 @@ export default function ComponentCard({
             {haveRequest && <div className="w-2 h-2 rounded-full bg-red-400 mr-5"></div>}
             <div className={iconL1 || avatar ? `w-10 h-10 bg-blue-100 flex justify-center items-center rounded-full ${iconStyle}` : ''}>
                 {iconL1}
-                {<img src={avatar} className={`rounded-full ${imgStyle}`} />}
+                {<img src={avatar} className={`rounded-full ${avatarStyle}`} />}
             </div>
-            <div className={img ? `w-14 h-14 bg-blue-100 flex justify-center items-center rounded-full ${iconStyle}` : ''}>
+            <div className={img ? `${imgStyle} bg-blue-100 flex justify-center items-center rounded-full ${iconStyle}` : ''}>
                 {<img src={img} className={`rounded-2xl ${imgStyle}`} />}
             </div>
             <div className={showTextLine ? 'text-left flex-1 flex-wrap ml-5 border-b-gray-200 border-b pb-2' : `text-left flex-1 flex-wrap ml-5`}>
-                <p className="text-black font-medium text-md leading-5 wrap-break-words whitespace-normal">{title}</p>
-                <p className="text-black  font-normal text-sm leading-4">{subSubTitle}</p>
+                <p className={`text-black font-medium text-md leading-5 wrap-break-words whitespace-normal ${titleStyle}`}>{title}</p>
+                <p className={`text-black  font-normal text-sm leading-4 ${textStyle}`}>{subSubTitle}</p>
                 <p className="text-gray-400 font-normal text-sm leading-4">{subTitle}</p>
             </div>
 

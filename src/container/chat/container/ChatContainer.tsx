@@ -1,6 +1,6 @@
 import { Icons } from "@/components/common/Icons"
 import ComponentCard from "@/components/shared/ComponentCard"
-import { FooterClient } from "@/layout/FooterLayout"
+import { FooterClient, FooterDoula } from "@/layout/FooterLayout"
 import Header from "@/layout/HeaderLayout"
 import { useState } from "react"
 import { useNavigate } from "react-router"
@@ -16,7 +16,7 @@ const INBOX = [
     { avatar : 'https://i.pravatar.cc/150?img=25', title : 'Pauline Hand requested your service', text : 'Tap to view and respond', haveRequest : true},
 ]
 const TABS = ['Chat', 'Inbox']
-
+const role = localStorage.getItem('role')
 export default function ChatContainer() {
     const [content, setContent] = useState('Chat')
     const nav = useNavigate()
@@ -68,7 +68,7 @@ export default function ChatContainer() {
                         <ComponentCard
                             key={index}
                             avatar={care.avatar}
-                            imgStyle="rounded-xl"
+                            avatarStyle="rounded-xl"
                             title={care.title}
                             subTitle={care.text}
                             haveRequest={care.haveRequest}
@@ -80,6 +80,6 @@ export default function ChatContainer() {
                 </div>
             </>}
         </div>
-        <FooterClient />
+        {role === 'doula' ? <FooterDoula /> : <FooterClient />}
     </>)
 }

@@ -1,4 +1,5 @@
 import ComponentCard from "@/components/shared/ComponentCard"
+import useDoula from "../hook/useDoula"
 
 const TABS = [
     { img: 'https://i.pravatar.cc/150?img=11', title: 'Basic Birth Package', subTitle: 'Labor and birth support. $99.99 per week' },
@@ -6,7 +7,9 @@ const TABS = [
     { img: 'https://i.pravatar.cc/150?img=11', title: 'Basic Birth Package', subTitle: 'Labor and birth support. $99.99 per week' },
 ]
 
-export default function SectionDoulaPackage() {
+export default function SectionDoulaPackage({ id }: { id: string }) {
+    const { useGetDoulaPackageById } = useDoula()
+    const { data : doulaPackage , loading : loadingDoulaPackage} = useGetDoulaPackageById(id ?? '')
     return (<>
         <div className="gap-5 flex flex-col">
             {TABS.map((e, index) => (
@@ -16,7 +19,7 @@ export default function SectionDoulaPackage() {
                         title={e.title}
                         subTitle={e.subTitle}
                         avatar={e.img}
-                        imgStyle="rounded-xl"
+                        avatarStyle="rounded-xl"
                         showExpandRight
                     />
                 </div>
