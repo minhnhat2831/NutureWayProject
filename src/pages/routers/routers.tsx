@@ -18,11 +18,17 @@ import PackageDetailPage from "../care/PackageDetailPage";
 import AppointmentPage from "../appointment/AppointmentPage";
 import NotFoundPage from "../NotFoundPage";
 import CategoryDetailPage from "../CategoryDetailPage";
-import CareRoute from "@/container/care/router/route";
 import DetailPage from "../detail/DetailPage";
+import OnBoadingPackage from "@/container/care/container/package/OnBoaringPackage";
+import PackageDetailContainer from "@/container/care/container/PackageDetailContainer";
+import UserProfilePage from "../user/UserProfilePage";
+import CalenderPage from "../appointment/CalenderPage";
+import DetailPackagePage from "../detail/DetailPackagePage";
+import PackageRequestPage from "../package/PackageRequestPage";
 
 export default function PageRouter() {
     return (<>
+        {/* /home */}
         <Routes>
             <Route path="/"
                 element={
@@ -31,13 +37,37 @@ export default function PageRouter() {
                     </PageLayout>
                 }>
             </Route>
-            <Route path="/package"
+
+            {/* care / package */}
+            <Route path="/care"
                 element={
                     <PageLayout>
-                        <CareRoute />
+                        <CarePage />
                     </PageLayout>
                 }>
             </Route>
+            <Route path="/care/package"
+                element={
+                    <PageLayout>
+                        <OnBoadingPackage />
+                    </PageLayout>
+                }>
+            </Route>
+            <Route path="/care/package/:id"
+                element={
+                    <PageLayout>
+                        <PackageDetailContainer />
+                    </PageLayout>
+                }>
+            </Route>
+            <Route path="/care/package/edit/:id"
+                element={
+                    <PageLayout>
+                        <OnBoadingPackage />
+                    </PageLayout>
+                }>
+            </Route>
+            
             <Route path="/category/:id"
                 element={
                     <PageLayout>
@@ -59,6 +89,13 @@ export default function PageRouter() {
                     </PageLayout>
                 }>
             </Route>
+            <Route path="/client-profile/:id"
+                element={
+                    <PageLayout>
+                        <UserProfilePage />
+                    </PageLayout>
+                }>
+            </Route>
             <Route path="/settings"
                 element={
                     <PageLayout>
@@ -72,17 +109,24 @@ export default function PageRouter() {
                         <HelpCenterPage />
                     </PageLayout>
                 }></Route>
-            <Route path="/care"
-                element={
-                    <PageLayout>
-                        <CarePage />
-                    </PageLayout>
-                }>
-            </Route>
-            <Route path="/detail/:id"
+            <Route path="/detail/:id/doulas"
                 element={
                     <PageLayout>
                         <DetailPage />
+                    </PageLayout>
+                }>
+            </Route>
+            <Route path="/detail/:id/client"
+                element={
+                    <PageLayout>
+                        <DetailPage />
+                    </PageLayout>
+                }>
+            </Route>
+            <Route path="/detail/package-detail/:id"
+                element={
+                    <PageLayout>
+                        <DetailPackagePage />
                     </PageLayout>
                 }>
             </Route>
@@ -129,6 +173,12 @@ export default function PageRouter() {
                         <AppointmentPage />
                     </PageLayout>}>
             </Route>
+            <Route path="/calender"
+                element={
+                    <PageLayout>
+                        <CalenderPage />
+                    </PageLayout>}>
+            </Route>
             <Route path="/message"
                 element={
                     <PageLayout>
@@ -147,6 +197,13 @@ export default function PageRouter() {
                 element={
                     <PageLayout>
                         <ChatDetailPage />
+                    </PageLayout>
+                }>
+            </Route>
+            <Route path="/doula-profile/package/:id"
+                element={
+                    <PageLayout>
+                        <PackageRequestPage />
                     </PageLayout>
                 }>
             </Route>

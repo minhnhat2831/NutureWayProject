@@ -5,6 +5,8 @@ import SectionDoulaProfile from "../components/SectionDoulaProfile";
 import SectionDoulaPackage from "../components/SectionDoulaPackage";
 import SectionDoulaReview from "../components/SectionDoulaReview";
 import useDoula from "../hook/useDoula";
+import DoulaProfileSkeleton from "../components/DoulaProfileSkeleton";
+import img from '/public/profile.jpg'
 
 const TABS = [
     { id: 1, title: 'Profile' },
@@ -20,9 +22,7 @@ export default function DoulaProfileContainer() {
     const [content, setContent] = useState('Profile')
 
     if (loading) {
-        return <div className="h-screen bg-white flex justify-center items-center">
-            <Icons.buttonIcon />
-        </div>
+        return <DoulaProfileSkeleton />
     }
 
     return (<>
@@ -34,7 +34,7 @@ export default function DoulaProfileContainer() {
             </div>
             <div className="h-screen bg-white px-2">
                 <div className="relative z-20 bottom-8 ml-2">
-                    <img src={data?.picture?.uri} className="w-19 h-19 rounded-3xl border-white border-3" />
+                    <img src={data?.picture?.uri ?? img } className="w-19 h-19 rounded-3xl border-white border-3 bg-gray-300 " />
                 </div>
                 <div className="flex flex-row justify-between mx-2">
                     <div className="font-serif">

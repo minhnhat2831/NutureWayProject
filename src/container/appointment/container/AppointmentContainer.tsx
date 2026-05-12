@@ -23,7 +23,6 @@ export default function AppointmentsContainer() {
                         />
                     </div>
                 ))}
-
             </div>
         </div>
     </>)

@@ -13,6 +13,7 @@ interface HeaderProps {
     onSearchClear?: () => void;
     searchPlaceholder?: string;
     onClickSearch?: () => void
+    onKeyDown?: (e : any) => void
 
     iconR1?: ReactNode
     iconR2?: ReactNode
@@ -23,17 +24,17 @@ interface HeaderProps {
     onClickIconL1?: () => void
     onClickIconL2?: () => void
 
-    disableIconR1? : boolean
-    disableIconR2? : boolean
-    disableIconL1? : boolean
-    disableIconL2? : boolean
+    disableIconR1?: boolean
+    disableIconR2?: boolean
+    disableIconL1?: boolean
+    disableIconL2?: boolean
 }
 
 
 interface IconSlotProps {
     icon: ReactNode;
     onClick?: () => void;
-    disable? : boolean
+    disable?: boolean
 }
 
 interface SearchBarProps {
@@ -42,6 +43,7 @@ interface SearchBarProps {
     onClear: () => void;
     placeholder?: string;
     onClickSearch?: () => void
+    onKeyDown?: (e : any) => void
 }
 
 const alignClass: Record<NonNullable<HeaderProps["titleAlign"]>, string> = {
@@ -68,6 +70,7 @@ export const SearchBar = ({
     onChange,
     onClear,
     onClickSearch,
+    onKeyDown,
     placeholder = "Search...",
 }: SearchBarProps) => {
     return (
@@ -82,13 +85,14 @@ export const SearchBar = ({
                 onChange={(e) => onChange(e.target.value)}
                 onClick={onClickSearch}
                 placeholder={placeholder}
+                onKeyDown={onKeyDown}
                 className="flex-1 bg-transparent outline-none text-sm text-gray-700 placeholder:text-gray-400"
             />
 
             {value.length > 0 && (
                 <button
                     type="button"
-                    className="shrink-0 text-gray-400"
+                    className="shrink-0 text-gray-400 cursor-pointer"
                     onClick={onClear}
                 >
                     <Icons.closeButtonIcon />
@@ -108,6 +112,7 @@ export default function Header({
     onSearchClear,
     searchPlaceholder = 'Search...',
     onClickSearch,
+    onKeyDown,
     iconR1,
     iconR2,
     iconL1,
@@ -160,6 +165,7 @@ export default function Header({
                         <SearchBar
                             onClickSearch={onClickSearch}
                             value={searchQuery}
+                            onKeyDown={onKeyDown}
                             onChange={handleSearchChange}
                             onClear={handleSearchClear}
                             placeholder={searchPlaceholder}
@@ -187,7 +193,9 @@ export default function Header({
 
             {showSearch && title && (
                 <SearchBar
+                    onClickSearch={onClickSearch}
                     value={searchQuery}
+                    onKeyDown={onKeyDown}
                     onChange={handleSearchChange}
                     onClear={handleSearchClear}
                     placeholder={searchPlaceholder}

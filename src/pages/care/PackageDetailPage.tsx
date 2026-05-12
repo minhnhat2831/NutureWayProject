@@ -1,5 +1,5 @@
-import DetailPackageContainer from "@/container/detail/container/DetailPackageContainer";
+import PackageDetailContainer from "@/container/care/container/PackageDetailContainer";
 
 export default function PackageDetailPage(){
-    return <DetailPackageContainer />
+    return <PackageDetailContainer />
 }

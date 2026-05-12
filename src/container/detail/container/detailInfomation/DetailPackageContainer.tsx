@@ -1,11 +1,9 @@
-import { Icons } from "@/components/common/Icons";
 import useDoula from "@/container/doulas/hook/useDoula";
 import Header from "@/layout/HeaderLayout";
-import { useParams } from "react-router";
 import PackageDetailSkeleton from '../../components/PackageDetailSkeleton'
 
-export default function PackageDetailContainer() {
-    const { id } = useParams<{ id: string }>()
+export default function DetailPackageContainer() {
+    const id = location.pathname.split("/").pop()
     const { useGetDoulaPackageById } = useDoula()
     const { data, loading } = useGetDoulaPackageById(id ?? '')
 
@@ -18,7 +16,6 @@ export default function PackageDetailContainer() {
             showBack
             title="Package Detail"
             titleAlign="center"
-            iconR1={<Icons.editPenIcon />}
         />
         {data && <>
             <div className="h-screen bg-white overflow-y-auto">

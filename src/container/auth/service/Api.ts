@@ -108,3 +108,10 @@ export const postCheckResetPassword = async (data: verifiedRequest): Promise<ver
     )
     return response.data
 }
+
+export const postSwichRole = async ():Promise<userResponse> => {
+    const response = await axiosInstance.post<userResponse>(
+        API_ENDPOINT.API_SWITCH_ROLE
+    )
+    return response.data
+}

@@ -3,6 +3,7 @@ import Header from "@/layout/HeaderLayout";
 import useArticle from "../hook/useArticle";
 import { useParams } from "react-router";
 import { formatDate } from "@/utils/FormatDate";
+import ArticleDetailSkeleton from "../components/skeleton/ArticleDetailSkeleton";
 
 export default function ArticleDetailContainer() {
     const { id } = useParams<{ id: string }>()
@@ -12,9 +13,7 @@ export default function ArticleDetailContainer() {
     const { onSubmit : unfavorite, loading : loadingUnFavorite } = deleteFavorite()
 
     if (loading) {
-        return <div className="h-screen bg-white flex flex-col justify-center items-center">
-            <Icons.buttonIcon />
-        </div>
+        return <ArticleDetailSkeleton />
     }
 
     const loadingFU = loadingFavorite || loadingUnFavorite

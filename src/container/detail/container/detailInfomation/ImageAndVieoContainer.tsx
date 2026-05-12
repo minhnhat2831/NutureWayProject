@@ -3,7 +3,7 @@ import Header from "@/layout/HeaderLayout";
 
 export default function ImageAndVideoContainer() {
     return (<>
-        <Header showBack title="Images & videos" titleAlign="center" iconR1={<Icons.addIcon />} />
+        <Header showBack title="Images & videos" titleAlign="center" iconR1={<Icons.addIcon />} onClickIconR1={() => {}} />
         <div className="h-screen bg-white">
             <div className="flex flex-row flex-wrap gap-2">
                 {[1,2,3,4,5].map((e) => (

@@ -2,6 +2,7 @@ import { Icons } from "@/components/common/Icons";
 import ComponentCard from "@/components/shared/ComponentCard";
 import useDoula from "@/container/doulas/hook/useDoula";
 import Header from "@/layout/HeaderLayout";
+import { useState } from "react";
 import Scrollbar from "react-scrollbars-custom";
 
 function TabCard({ name }: { name: string }) {
@@ -17,17 +18,30 @@ export default function SearchContainer() {
     const { data, setSearch, search } = useGetDoulaNear()
     const limitedData = data.slice(0, 5) || [];
     const lenghtLimitData = limitedData.length
+    const [isSubmitted, setIsSubmitted] = useState(false);
 
     const searchLength = data.length
-    
+
     return (<>
         <div className="h-screen bg-white">
             <Header
                 showBack
                 showSearch
                 searchValue={search}
-                onSearchChange={(s) => setSearch(s)}
-                onSearchClear={() => setSearch('')}
+                onSearchChange={(s) => {
+                    setSearch(s);
+                    setIsSubmitted(false);
+                }}
+                onSearchClear={() => {
+                    setSearch('');
+                    setIsSubmitted(false);
+                }}
+                onClickSearch={() => setIsSubmitted(true)}
+                onKeyDown={(e) => {
+                    if (e.key === "Enter") {
+                        setIsSubmitted(true);
+                    }
+                }}
                 searchPlaceholder="Search for doulas, articles, anything,..."
             />
             {!search && <>
@@ -58,7 +72,7 @@ export default function SearchContainer() {
                 </div>
             </>}
 
-            {search && <Scrollbar width={'auto'} height={'auto'}>
+            {search && !isSubmitted && (<Scrollbar width={'auto'} height={'auto'}>
                 <div className="px-4 py-2">
                     <p className="font-serif font-bold">Are you looking for...<span className="text-gray-400">{searchLength}</span></p>
                     {data.map((res, index) => (
@@ -70,8 +84,31 @@ export default function SearchContainer() {
                         />
                     ))}
                 </div>
-            </Scrollbar>}
+            </Scrollbar>)}
 
+            {search && isSubmitted && (
+                <Scrollbar>
+                    <div className="px-4 py-2">
+                        <p className="font-serif font-bold">
+                            Search results
+                            <span className="text-gray-400">{searchLength}</span>
+                        </p>
+
+                        {data.map((res, index) => (
+                            <ComponentCard
+                                key={index}
+                                avatar={res?.picture?.uri}
+                                avatarStyle="rounded-xl"
+                                title={res?.user?.fullName}
+                                subTitle={res?.title}
+                                showRateStar
+                                rateStar={res?.starAvg}
+                                onClick={() => { }}
+                            />
+                        ))}
+                    </div>
+                </Scrollbar>
+            )}
         </div>
     </>)
 }

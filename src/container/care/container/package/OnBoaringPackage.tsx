@@ -2,15 +2,16 @@ import PackageLayout from "../../components/PackageLayout"
 import SectionPackage from "../../components/section/SectionPackage"
 import usePackage from "../../hook/usePackage"
 import type { packageRequest } from "../../schema/PackageSchema.type"
-import { useNavigate } from "react-router"
+import { useNavigate, useParams } from "react-router"
 import { useStepForm } from "@/container/auth/hooks/useFormStage"
 import SectionPrice from "../../components/section/SectionPrice"
 import SectionDesInCluded from "../../components/section/SectionDesIncluded"
 import SectionQuantification from "../../components/section/SectionQuantification"
+import useFormPackage from "../../hook/useFormPackage"
 
 const STEPS = [
-    { id: 1, title: "Let's add your package", subTitle: "Please upload a cover photo,and give details to your package listing" },
-    { id: 2, title: 'Your pricing policy', subTitle: (`How much do you charge ore week How often will you charge per week Do you charge for special circumstances`) },
+    { id: 1, title: "Let's add your package", subTitle: "Please upload a cover photo,\n\n and give details to your package listing" },
+    { id: 2, title: 'Your pricing policy', subTitle: `How much do you charge ore week . Do you charge for special circumstances`},
     { id: 3, title: "What's included", subTitle: "Please give details of what you would like to include in your doula service package" },
     { id: 4, title: "Your qualifications", subTitle: "Let the client know the qunlification or certification you current hold" }
 ]
@@ -25,8 +26,12 @@ export default function OnBoadingPackage() {
     const { back, isFirst, isLast, next, step, uploadProgress } = useStepForm(4)
     const nav = useNavigate()
 
-    const { usePostDoulaPackage } = usePackage()
-    const { onSubmit, method, success } = usePostDoulaPackage()
+    const { id } = useParams();
+
+    const { method } = useFormPackage(id ?? '')
+
+    const { useFormCarePackage } = usePackage()
+    const { onSubmit, success, loading } = useFormCarePackage()
 
     const handleNext = async () => {
         const fields = STEP_FIELDS[step]
@@ -45,7 +50,11 @@ export default function OnBoadingPackage() {
                 .map(q => q.value)
                 .filter(v => v.trim() !== ""),
         }
-        await onSubmit(dataSubmit)
+        await onSubmit({
+            id,
+            isEdit: !!id,
+            data: dataSubmit
+        })
     })
 
     return (<>
@@ -64,7 +73,7 @@ export default function OnBoadingPackage() {
                         {step === 3 && <SectionDesInCluded />}
                         {step === 4 && <SectionQuantification />}
                     </>}
-                    loading={false}
+                    loading={loading}
                     onClickBack={isFirst ? () => nav('/home/care') : back}
                     onClickButton={isLast ? submit : handleNext}
                     onClickClose={() => nav('/home/care')}
@@ -82,7 +91,7 @@ export default function OnBoadingPackage() {
                 children={<></>}
                 loading={false}
                 onClickBack={() => nav('/home/care')}
-                onClickButton={() => { }}
+                onClickButton={() => nav('/home/care')}
                 onClickClose={() => nav('/home/care')}
             />
         </>}

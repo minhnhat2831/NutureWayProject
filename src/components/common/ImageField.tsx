@@ -33,7 +33,7 @@ export default function ImageField({
   }, [defaultImage])
 
   return (<>
-    <div className="w-full h-50">
+    <div className="w-full h-auto">
       <Controller
         name={name}
         control={control}
@@ -73,7 +73,7 @@ export default function ImageField({
                 <img
                   src={preview}
                   alt="preview"
-                  className="w-auto rounded border shadow"
+                  className="w-full h-full rounded border"
                 />
               </div>
 

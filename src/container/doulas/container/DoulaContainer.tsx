@@ -2,20 +2,24 @@ import DoulasCard from "@/components/shared/DoulasCard"
 import { useNavigate } from "react-router"
 import Scrollbar from "react-scrollbars-custom"
 import useDoula from "../hook/useDoula"
-import { Icons } from "@/components/common/Icons"
+import DoulaCardSkeleton from "../components/DoulaCardSkeleton"
 
 export default function DoulaContainer() {
     const nav = useNavigate()
     const { useGetDoulaNear } = useDoula()
-    const { data , loading } = useGetDoulaNear()
+    const { data, loading } = useGetDoulaNear()
 
-    if(loading){
-        return<>
+    if (loading) {
+        return <>
             <p className="px-2 text-2xl text-gray-400 font-serif mt-5">Doulas near you</p>
-            <div className="flex flex-col justify-center items-center p-20"><Icons.buttonIcon /></div>
+            <div className="gap-4 flex flex-row my-5 px-2 overflow-hidden">
+                {[1, 2].map((e) => (
+                    <DoulaCardSkeleton key={e} />
+                ))}
+            </div>
         </>
     }
-    
+
     return (<>
         <p className="px-2 text-2xl text-gray-400 font-serif mt-5">Doulas near you</p>
         <Scrollbar style={{ width: '100%', height: 250 }}>
@@ -30,7 +34,7 @@ export default function DoulaContainer() {
                         onClick={() => nav(`/home/doula-profile/${doula.id}`)}
                     />
                 ))}
-                {data.length === 0 && [1,2,3].map((index) => (
+                {data.length === 0 && [1, 2, 3].map((index) => (
                     <DoulasCard
                         key={index}
                         title={'####'}
