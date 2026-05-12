@@ -24,21 +24,21 @@ export default function AppointmentCard({
                 <p className="font-semibold text-lg leading-5">{time}</p>
             </div>
             <div className="px-2 mt-1">
-                <div className="flex flex-row justify-between my-1">
-                    <p className="font-serif text-lg leading-5 text-gray-400">Doula</p>
-                    <p className="font-serif text-lg leading-5">{doula}</p>
+                <div className="flex flex-row justify-between my-2">
+                    <p className="font-serif text-md leading-5 text-gray-400">Doula</p>
+                    <p className="font-serif text-md leading-5">{doula}</p>
                 </div>
                 <div className="flex flex-row justify-between my-1">
-                    <p className="font-serif text-lg leading-5 text-gray-400">Location</p>
-                    <p className="font-serif text-lg leading-5">{location}</p>
+                    <p className="font-serif text-md leading-5 text-gray-400">Location</p>
+                    <p className="font-serif text-md leading-5">{location}</p>
                 </div>
                 <div className="flex flex-row justify-between my-1">
-                    <p className="font-serif text-lg leading-5 text-gray-400">Duration</p>
-                    <p className="font-serif text-lg leading-5">{duration}</p>
+                    <p className="font-serif text-md leading-5 text-gray-400">Duration</p>
+                    <p className="font-serif text-md leading-5">{duration}</p>
                 </div>
                 <div className="flex flex-row justify-between my-1">
-                    <p className="font-serif text-lg leading-5 text-gray-400">Purpose of visit</p>
-                    <p className="font-serif text-lg leading-5">{purpose}</p>
+                    <p className="font-serif text-md leading-5 text-gray-400">Purpose of visit</p>
+                    <p className="font-serif text-md leading-5">{purpose}</p>
                 </div>
             </div>
 

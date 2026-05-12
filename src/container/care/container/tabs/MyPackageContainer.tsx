@@ -21,22 +21,22 @@ export default function MyPackageContainer() {
 
     return (<>
         <div className="flex flex-col gap-4 px-2">
-            {dataPackage.map((item, index) => (
+            {dataPackage.map((item, index) => 
                 <ComponentCard
                     key={index}
                     img={item?.picture?.uri}
-                    imgStyle="w-15 h-15"
+                    imgStyle="w-15 h-15 bg-gray-400"
                     title={item?.name}
                     subTitle={item?.shortDescription}
                     showExpandRight
-                    onClick={() => nav(`/home/care/package-detail/${item?.id}`)}
+                    onClick={() => nav(`/home/care/package/${item?.id}`)}
                 />
-            ))}
+            )}
             <ComponentCard
                 iconStyle="rounded-xl bg-white border-gray-200 border"
                 iconL1={<Icons.addIcon />}
                 title="Add a package listing"
-                onClick={() => nav('/home/package')}
+                onClick={() => nav('/home/care/package')}
             />
         </div>
     </>)

@@ -1,8 +1,8 @@
 import Scrollbar from "react-scrollbars-custom"
 import useCategory from "../hooks/useCategory"
 import CategoriesCard from "@/components/shared/CategoriesCard"
-import { Icons } from "@/components/common/Icons"
 import { useNavigate } from "react-router"
+import CategoriesCardSkeleton from "../components/CategoriesCardSkeleton"
 
 export default function CategoryContainer() {
     const { useGetListCategory } = useCategory()
@@ -11,7 +11,11 @@ export default function CategoryContainer() {
     if (loading) {
         return <>
             <p className="px-2 text-2xl text-gray-400 font-serif mt-5">Popular Categories</p>
-            <div className="flex flex-col justify-center items-center p-28"><Icons.buttonIcon /></div>
+            <div className="gap-4 flex flex-row flex-nowrap my-5 px-2">
+                {[1,2,3,4].map((e) => (
+                    <CategoriesCardSkeleton key={e} />
+                ))}
+            </div>
         </>
     }
 

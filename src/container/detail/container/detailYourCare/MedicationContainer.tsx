@@ -4,28 +4,36 @@ import Popup from "@/components/common/Popup"
 import ComponentCard from "@/components/shared/ComponentCard"
 import Header from "@/layout/HeaderLayout"
 import { useState } from "react"
-import { useParams } from "react-router"
 import ImageField from "@/components/common/ImageField"
 import { InputForm } from "@/components/form/InputForm"
 import { FormProvider } from "react-hook-form"
 import useMedication from "../../hook/useMedication"
 import type { careMedicationRequest } from "../../schema/MedicationSchema.type"
+import ComponentSkeletonCard from "@/components/shared/ComponentSkeletonCard"
 
 export default function MedicationContainer() {
-    const { id } = useParams<{ id: string }>()
+    const id = location.pathname.split("/").pop()
     const { useCareMedication, usePostCareMedication } = useMedication()
     const { data, loading } = useCareMedication(id ?? '')
     const [open, setOpen] = useState(false)
 
     const { onSubmit, loading: loadingPost, method } = usePostCareMedication()
+    const img = method.getValues('picture')
 
     if (loading) {
-        return <div className="h-screen bg-white flex justify-center items-center">
-            <Icons.buttonIcon />
-        </div>
+        return <>
+            <Header showBack title="Medication" titleAlign="center" iconR1={<Icons.addIcon />} onClickIconR1={() => setOpen(!open)} />
+            <div className="h-screen bg-white z-0 relative">
+                <div className="flex flex-col gap-4 px-2">
+                    {[1, 2, 3].map((e) => (
+                        <ComponentSkeletonCard key={e} />
+                    ))}
+                </div>
+            </div>
+        </>
     }
 
-    const submit = method.handleSubmit(async (data) => {
+    const submit = async (data : careMedicationRequest) => {
         const dataSubmit: careMedicationRequest = {
             careId: id ?? '',
             amount: data.amount,
@@ -36,7 +44,7 @@ export default function MedicationContainer() {
             references: ''
         }
         onSubmit(dataSubmit)
-    })
+    }
 
     return (<>
         <Header showBack title="Medication" titleAlign="center" iconR1={<Icons.addIcon />} onClickIconR1={() => setOpen(!open)} />
@@ -54,9 +62,11 @@ export default function MedicationContainer() {
                         <form onSubmit={(e) => e.preventDefault()} className="flex flex-col my-4 gap-4">
                             <div className="bg-[#efefef] w-full h-50 flex flex-col rounded-2xl items-center justify-center cursor-pointer">
                                 <ImageField
-                                    name="picture"
+                                    placeHolder="Click here to upload a cover photo"
                                     control={method.control}
-                                    defaultImage=""
+                                    defaultImage={img ?? ''}
+                                    error={''}
+                                    name="picture"
                                 />
                             </div>
                             <InputForm
@@ -90,8 +100,8 @@ export default function MedicationContainer() {
                             <ButtonField
                                 className="mt-8"
                                 fullWidth
-                                type="button"
-                                onClick={submit}
+                                type="submit"
+                                onClick={() => method.handleSubmit(submit)}
                                 variant="primary"
                                 disabled={loadingPost}
                             >
@@ -115,6 +125,10 @@ export default function MedicationContainer() {
                         showTextLine
                     />
                 ))}
+                {data.length < 1 &&
+                    <div className="mt-10">
+                        <p className="text-gray-400 font-serif text-center">You don't have any medication yet!</p>
+                    </div>}
             </div>
         </div>
     </>)

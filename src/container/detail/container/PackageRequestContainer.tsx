@@ -1,10 +1,16 @@
 import { ButtonField } from "@/components/common/ButtonField";
 import { Icons } from "@/components/common/Icons";
-import { InputField } from "@/components/common/InputField";
 import Popup from "@/components/common/Popup";
 import ComponentCard from "@/components/shared/ComponentCard";
+import useDoula from "@/container/doulas/hook/useDoula";
 import Header from "@/layout/HeaderLayout";
 import { useState } from "react";
+import { useParams } from "react-router";
+import usePackageRequest from "../hook/usePackageRequest";
+import PackageDetailSkeleton from "../components/PackageDetailSkeleton";
+import { InputForm } from "@/components/form/InputForm";
+import type { packageRequest } from "../schema/PackageSchema.type";
+import { useAuthen } from "@/context/AuthContext";
 
 const EXPECT = [
     { title: 'Doula reviews your request', subTitle: 'Doula will review your request and assess their suitability to meet your needs.', icon: <Icons.securityIcon /> },
@@ -12,8 +18,27 @@ const EXPECT = [
     { title: 'Doula approves your request', subTitle: 'If eligible, the doula will approve you as a client and notify us.', icon: <Icons.checkIcon /> },
 ]
 
-export default function DetailPackageContainer() {
+export default function PackageRequestContainer() {
+    const { user } = useAuthen()
     const [open, setOpen] = useState(false)
+    const { id } = useParams<{ id : string }>()
+    const { useGetDoulaPackageById } = useDoula()
+    const { data, loading } = useGetDoulaPackageById(id ?? '')
+
+    const { method, onSubmit, loading : loadingPackageRequest } = usePackageRequest()
+
+    if(loading){
+        return <PackageDetailSkeleton />
+    }
+
+    const submit = (data : packageRequest) => {
+        onSubmit({
+            doulaPackageId : data.doulaPackageId,
+            userId : user?.id ?? '',
+            message : data.message
+        })
+    }
+
     return (<>
         <div className="h-screen bg-white overflow-y-auto">
             <Header
@@ -21,21 +46,19 @@ export default function DetailPackageContainer() {
                 title="Package Detail"
                 titleAlign="center"
             />
-            <img src='https://placehold.co/393x184' alt="picture"></img>
+            <img src={data?.picture.uri} alt="picture" className="w-full h-40 bg-gray-300" />
             <div className="px-4 my-8 font-serif">
-                <h2 className="font-semibold text-lg leading-6">Comprehensice Birth Package</h2>
-                <h3 className="font-normal text-gray-400 text-sm leading-5">In-depth birth plan consilation</h3>
+                <h2 className="font-semibold text-lg leading-6">{data?.name}</h2>
+                <h3 className="font-normal text-gray-400 text-sm leading-5">{data?.shortDescription}</h3>
 
                 <div className="border-gray-300 border rounded-xl p-4 my-4">
                     <label className="font-bold text-sm leading-5">Pricing</label>
-                    <p className="text-sm text-gray-600 my-4 leading-5">$99.99 per week. Client are billed monthly</p>
+                    <p className="text-sm text-gray-600 my-4 leading-5">{data?.price}</p>
                 </div>
 
                 <div className="border-gray-300 border rounded-xl p-4 my-4">
                     <label className="font-bold text-sm leading-5">What's included</label>
-                    <p className="text-sm text-gray-600 my-4 leading-5">1. Prenatal Care and Education : regular check-ups, ultrasounds and prenatal classes that edicate about pregnancy , labor, and delivery</p>
-                    <p className="text-sm text-gray-600 my-4 leading-5">2. Labor and Delivery Support: This can include the services of a midwife or doula, who provides emotional and physical support during labor and delivery.</p>
-                    <p className="text-sm text-gray-600 my-4 leading-5">3. Newborn Care Essentials: Supplies such as diapers, wipes, baby clothing, and swaddling blankets</p>
+                    <p className="text-sm text-gray-600 my-4 leading-5">{data?.description}</p>
                 </div>
 
                 <ButtonField
@@ -56,7 +79,7 @@ export default function DetailPackageContainer() {
                         </button>
                     </div>
                     <div className="flex flex-row gap-4 items-center">
-                        <img src={'https://i.pravatar.cc/150?img=18'} alt="avarta" width={70} height={70} className="rounded-xl" />
+                        <img src={data?.picture.uri} alt="avarta" className="w-20 h-20 rounded-xl bg-gray-300" />
                         <div>
                             <p className="font-semibold text-lg leading-6">Nellie King</p>
                             <p className="font-normal text-sm leading-5 text-gray-400">Childbirth professional</p>
@@ -69,9 +92,11 @@ export default function DetailPackageContainer() {
                         <p className="font-serif text-sm leading-5">And any special requests you may have.</p>
                     </div>
 
-                    <InputField
-                        insideLabel="detail of your request"
+                    <InputForm
+                        name="message"
+                        insideLabel="Detail of your request"
                         placeholder="Input"
+                        disabled={!loadingPackageRequest}
                     />
 
                     <p className="font-serif italic text-sm leading-5 text-gray-400 my-4">What to expect next</p>
@@ -89,6 +114,8 @@ export default function DetailPackageContainer() {
                     <ButtonField
                         fullWidth
                         type="button"
+                        disabled={loadingPackageRequest}
+                        onClick={() => method.handleSubmit(submit)}
                     >Send</ButtonField>
 
                 </div>

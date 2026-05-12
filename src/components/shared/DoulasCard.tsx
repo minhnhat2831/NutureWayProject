@@ -19,7 +19,7 @@ export default function DoulasCard({
         <div className="flex-1 flex-col min-w-50 h-50 cursor-pointer"
             onClick={onClick}
         >
-            <img src={img} className="w-full h-30 rounded-3xl shadow-lg bg-gray-300"></img>
+            <img src={img} className="w-full h-30 rounded-3xl shadow-lg bg-gray-200"></img>
             <div className="mt-3">
                 <div className="flex flex-row justify-between items-center">
                     <p className="font-serif text-xl font-bold">{title}</p>

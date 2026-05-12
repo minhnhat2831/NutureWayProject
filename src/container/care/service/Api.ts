@@ -1,7 +1,8 @@
 import axiosInstance from "@/services/Axios";
-import type { careList, careListDetail, careMedicationListItemResponse, careMedicationListResponse, careMedicationRequest, myCareParams, myPackageResponse } from "../schema/CareSchema.type";
+import type { careList, careListDetail, manuallyClientRequest, manuallyClientResponse, myCareParams } from "../schema/CareSchema.type";
 import { API_ENDPOINT } from "@/services/Api";
 import type { packageListResponse, packageParams, packageRequest } from "../schema/PackageSchema.type";
+import type { careMedicationListItemResponse, careMedicationListResponse, careMedicationRequest } from "@/container/detail/schema/MedicationSchema.type";
 
 export const getMyCares = async (params: myCareParams): Promise<careList> => {
     const response = await axiosInstance.get<careList>(
@@ -19,11 +20,11 @@ export const getCareById = async (id: string): Promise<careListDetail> => {
     return response.data
 }
 
-export const getMyDoulaPackage = async (params : packageParams): Promise<packageListResponse> => {
+export const getMyDoulaPackage = async (params: packageParams): Promise<packageListResponse> => {
     const response = await axiosInstance.get<packageListResponse>(
-        API_ENDPOINT.API_DOULA_PACKAGE,{
-            params
-        }
+        API_ENDPOINT.API_DOULA_PACKAGE, {
+        params
+    }
     )
     return response.data
 }
@@ -32,6 +33,14 @@ export const postDoulaPackage = async (data: packageRequest): Promise<packageLis
     const response = await axiosInstance.post<packageListResponse>(
         API_ENDPOINT.API_DOULA_PACKAGE,
         data
+    )
+    return response.data
+}
+
+export const putDoulaPackage = async (id : string, data : packageRequest): Promise<packageListResponse> => {
+    const response = await axiosInstance.put<packageListResponse>(
+        API_ENDPOINT.API_DOULA_PACKAGE_BY_ID(id),
+            data
     )
     return response.data
 }
@@ -51,9 +60,10 @@ export const postCareMedication = async (data: careMedicationRequest): Promise<c
     return response.data
 }
 
-export const getMyPackage = async (): Promise<myPackageResponse> => {
-    const response = await axiosInstance.get<myPackageResponse>(
-        API_ENDPOINT.API_DOULA_PROFILE
+export const postManuallyClient = async (data: manuallyClientRequest): Promise<manuallyClientResponse> => {
+    const response = await axiosInstance.post<manuallyClientResponse>(
+        API_ENDPOINT.API_MANUALLY_CLIENT,
+        data
     )
     return response.data
 }

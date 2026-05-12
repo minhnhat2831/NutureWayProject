@@ -1,14 +1,12 @@
 import { useMutation } from "@tanstack/react-query"
-import { getMyDoulaPackage, postDoulaPackage } from "../service/Api"
+import { getMyDoulaPackage, postDoulaPackage, putDoulaPackage } from "../service/Api"
 import { handleError } from "@/utils/ErrorHandle"
-import type { packageFormValues, packageRequest } from "../schema/PackageSchema.type"
+import type { packageRequest } from "../schema/PackageSchema.type"
 import { toast } from "react-toastify"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { packageFormSchema } from "../schema/PackageSchema"
 import { useState } from "react"
 import { useAuthen } from "@/context/AuthContext"
 import { useTableManager } from "@/hook/useTableManager"
+import { queryClient } from "@/main"
 
 export default function usePackage() {
     const { role } = useAuthen()
@@ -22,7 +20,7 @@ export default function usePackage() {
                 try {
                     return await getMyDoulaPackage({
                         page,
-                        limit : 100,
+                        limit: 100,
                         offset,
                         search,
                         sort
@@ -41,24 +39,25 @@ export default function usePackage() {
         }
     }
 
-    const usePostDoulaPackage = () => {
+    const useFormCarePackage = () => {
         const [success, setSuccess] = useState(false)
-        const method = useForm<packageFormValues>({
-            resolver: zodResolver(packageFormSchema),
-            mode: 'onChange',
-            defaultValues: {
-                description: '',
-                image: '',
-                name: '',
-                price: '',
-                qualifications: [],
-                shortDescription: ''
-            }
-        })
+
         const mutation = useMutation({
-            mutationFn: async (data: packageRequest) => {
+            mutationFn: async ({
+                id,
+                isEdit,
+                data
+            }: {
+                id?: string
+                isEdit?: boolean
+                data: packageRequest
+            }) => {
+                if (isEdit) {
+                    return await putDoulaPackage(id!, data)
+                }
                 return await postDoulaPackage(data)
             }, onSuccess: (res) => {
+                queryClient.invalidateQueries({queryKey: ['doula-package']})
                 toast.success(res.message)
                 setSuccess(true)
             }, onError: (err: unknown) => {
@@ -69,7 +68,6 @@ export default function usePackage() {
         return {
             onSubmit: mutation.mutateAsync,
             loading: mutation.isPending,
-            method: method,
             success,
             setSuccess
         }
@@ -77,6 +75,6 @@ export default function usePackage() {
 
     return {
         useGetMyPackage,
-        usePostDoulaPackage,
+        useFormCarePackage,
     }
 }

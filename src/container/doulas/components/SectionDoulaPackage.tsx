@@ -1,29 +1,40 @@
 import ComponentCard from "@/components/shared/ComponentCard"
 import useDoula from "../hook/useDoula"
-
-const TABS = [
-    { img: 'https://i.pravatar.cc/150?img=11', title: 'Basic Birth Package', subTitle: 'Labor and birth support. $99.99 per week' },
-    { img: 'https://i.pravatar.cc/150?img=11', title: 'Basic Birth Package', subTitle: 'Labor and birth support. $99.99 per week' },
-    { img: 'https://i.pravatar.cc/150?img=11', title: 'Basic Birth Package', subTitle: 'Labor and birth support. $99.99 per week' },
-]
+import { Icons } from "@/components/common/Icons"
+import { useNavigate } from "react-router"
 
 export default function SectionDoulaPackage({ id }: { id: string }) {
-    const { useGetDoulaPackageById } = useDoula()
-    const { data : doulaPackage , loading : loadingDoulaPackage} = useGetDoulaPackageById(id ?? '')
+    const { useGetDoulaIdPackage } = useDoula()
+    const { data: doulaPackage, loading: loadingDoulaPackage } = useGetDoulaIdPackage(id ?? '')
+    const nav = useNavigate()
+
+    if (loadingDoulaPackage) {
+        return <Icons.buttonIcon />
+    }
+
+    if(!doulaPackage){
+        return 
+    }
+
     return (<>
         <div className="gap-5 flex flex-col">
-            {TABS.map((e, index) => (
+            {doulaPackage?.map((e, index) => (
                 <div className="border-b-gray-400 border-b">
                     <ComponentCard
                         key={index}
-                        title={e.title}
-                        subTitle={e.subTitle}
-                        avatar={e.img}
+                        title={e.name}
+                        subTitle={e.description}
+                        img={e.picture?.uri}
+                        imgStyle="w-15 h-15 bg-gray-400"
                         avatarStyle="rounded-xl"
                         showExpandRight
+                        onClick={() => nav(`/home/doula-profile/package/${e.id}`)}
                     />
                 </div>
             ))}
         </div>
+        {!doulaPackage && <div className="px-4 mt-1 font-serif">
+            <p className="text-sm text-gray-500 text-center">This person don't have any package!!</p>
+        </div>}
     </>)
 }

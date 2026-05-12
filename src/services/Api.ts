@@ -26,6 +26,8 @@ export const API_ENDPOINT = {
     API_AUTO_ADDRESS: `/address/autocomplete`,
     API_ADDRESS_ID: (id: string) => `/address/metadata/${id}`,
 
+    API_SWITCH_ROLE : '/auth/switch-role',
+
     //Category
     API_CATEGORY: `/categories`,
     API_CATEGORY_ID: (id: string) => `/categories/${id}`,
@@ -43,6 +45,7 @@ export const API_ENDPOINT = {
     API_DOULA_PACKAGE: '/doula-packages',
     API_DOULA_PACKAGE_BY_ID: (id: string) => `/doula-packages/${id}`,
     API_DOULA_PROFILE : '/doulas/me',
+    API_DOULA_ID_PACKAGE : (id : string) => `/doulas/${id}/packages`,
 
     //Care
     API_MY_CARES: '/cares/my/ongoing',
@@ -56,6 +59,8 @@ export const API_ENDPOINT = {
 
     API_NOTE : `/care-notes`,
     API_NOTE_BY_ID : (id : string) => `/care-notes/${id}`,
+
+    API_MANUALLY_CLIENT : `/package-requests/add-manually-client`,
 
     //Appointment
     API_APPOINTMENT_BY_ROLE : '/appointments',
@@ -76,6 +81,10 @@ export const API_ENDPOINT = {
     API_SETTING_HELP_CENTER: '/help-centres',
 
     //User
-    API_USER_BY_ID : (id : string) => `/users/${id}`
+    API_USER_BY_ID : (id : string) => `/users/${id}`,
+
+    //Doula Review
+    API_DOULA_REVIEW_STAR : (id : string) => `/reviews/overview?doulaId=${id}`,
+    API_DOULA_REVIEW : `/reviews`
 
 }

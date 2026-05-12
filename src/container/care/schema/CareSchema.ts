@@ -1,4 +1,4 @@
-import { METADATA, PARAMS, PAYLOAD_PICURE, PAYLOAD_RESPONSE } from '@/constants/SchemaConstant'
+import { METADATA, PARAMS, PAYLOAD_PICURE, PAYLOAD_RESPONSE, STRING_NULL_OR_OPTIONAL, STRING_REQUIRED } from '@/constants/SchemaConstant'
 import * as z from 'zod'
 
 export const myCareParamsSchema = PARAMS.extend({
@@ -75,11 +75,12 @@ export const careListDetailSchema = PAYLOAD_RESPONSE.extend({
 //--------------------MY Package -----------------
 export const myPackageResponseSchema = z.object({
     id: z.string(),
-    title: z.string(),
-    shortDes: z.string(),
+    name: z.string(),
+    price : z.string(),
+    shortDescription: z.string(),
     description: z.string(),
     status: z.string(),
-    photo: z.array(z.string()),
+    picture: PAYLOAD_PICURE,
     quanlification: z.array(z.string()),
     createdAt: z.string(),
     updatedAt : z.string(),
@@ -88,4 +89,19 @@ export const myPackageResponseSchema = z.object({
 
 export const myPackageResponse = PAYLOAD_RESPONSE.extend({
     data : myPackageResponseSchema
+})
+
+export const myPackageListResponse = PAYLOAD_RESPONSE.extend({
+    data : z.array(myPackageResponseSchema)
+})
+
+export const manuallyClientRequestSchema = z.object({
+    firstName : STRING_NULL_OR_OPTIONAL,
+    lastName : STRING_NULL_OR_OPTIONAL,
+    fullName : STRING_REQUIRED,
+    doulaPackageId : STRING_REQUIRED
+})
+
+export const manuallyClientResponseSchema = PAYLOAD_RESPONSE.extend({
+    data : z.boolean()
 })

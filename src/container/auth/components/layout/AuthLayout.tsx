@@ -46,7 +46,7 @@ export default function AuthLayout({
                                 fullWidth
                                 onClick={onClick}
                             >
-                                {buttonName}
+                                {disable ? "Loading..." : buttonName}
                             </ButtonField>
                         </div>
 

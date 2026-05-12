@@ -23,7 +23,7 @@ export const careMedicationRequestSchema = z.object({
     brandName: STRING_REQUIRED,
     drugName: STRING_REQUIRED,
     dose: STRING_REQUIRED,
-    picture: STRING_REQUIRED,
+    picture: STRING_NULL_OR_OPTIONAL,
     amount: STRING_REQUIRED,
     references: STRING_NULL_OR_OPTIONAL
 })

@@ -1,9 +1,12 @@
 import { useTableManager } from "@/hook/useTableManager"
-import { getCareById, getMyCares } from "../service/Api"
+import { getCareById, getMyCares, postManuallyClient } from "../service/Api"
 import { handleError } from "@/utils/ErrorHandle"
-import { useQuery } from "@tanstack/react-query"
-import type { careListDetail } from "../schema/CareSchema.type"
+import { useMutation, useQuery } from "@tanstack/react-query"
+import type { careListDetail, manuallyClientRequest } from "../schema/CareSchema.type"
 import { useAuthen } from "@/context/AuthContext"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { manuallyClientRequestSchema } from "../schema/CareSchema"
 
 export default function useCare() {
     const { role } = useAuthen()
@@ -55,11 +58,41 @@ export default function useCare() {
         }
     }
 
-    
+    const usePostClientManually = (options?: {
+        onSuccess: (res: any) => void
+    }) => {
+        const method = useForm<manuallyClientRequest>({
+            mode : 'onChange',
+            resolver : zodResolver(manuallyClientRequestSchema),
+            defaultValues : {
+                doulaPackageId : '',
+                firstName : '',
+                lastName : '',
+                fullName : ''
+            }
+        })
+
+        const mutation = useMutation({
+            mutationFn : async (data : manuallyClientRequest) => {
+                return await postManuallyClient(data)
+            },onSuccess : (res) => {
+                options?.onSuccess?.(res)
+            },
+            onError : (err : unknown) => {
+                handleError(err)
+            }
+        })
+
+        return { 
+            method,
+            onSubmit : mutation.mutateAsync,
+            loading : mutation.isPending
+        }
+    }
 
     return {
         useGetMycare,
         useGetCareById,
-
+        usePostClientManually
     }
 }
