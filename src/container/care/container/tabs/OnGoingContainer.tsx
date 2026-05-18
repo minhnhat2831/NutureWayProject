@@ -7,7 +7,7 @@ export default function OnGoingContainer() {
     const { useGetMycare } = useCare()
     const { data, loading: loadingMyCare } = useGetMycare()
     const nav = useNavigate()
-
+    
     if (loadingMyCare) {
         return <>
             <div className="h-screen bg-white z-0 relative">
@@ -25,8 +25,8 @@ export default function OnGoingContainer() {
             {data.map((care, index) => (
                 <ComponentCard
                     key={index}
-                    avatar={care?.doula?.user?.picture}
-                    title={care?.doula?.title}
+                    avatar={care?.doula?.user?.picture?.uri}
+                    title={care?.doula?.user?.fullName}
                     subTitle={care?.doulaPackage?.name}
                     showExpandRight
                     onClick={() => nav(`/home/detail/${care.id}/doula`)}

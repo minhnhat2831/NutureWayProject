@@ -23,7 +23,7 @@ export default function SectionDoulaPackage({ id }: { id: string }) {
                     <ComponentCard
                         key={index}
                         title={e.name}
-                        subTitle={e.description}
+                        subTitle={e.shortDescription}
                         img={e.picture?.uri}
                         imgStyle="w-15 h-15 bg-gray-400"
                         avatarStyle="rounded-xl"
@@ -33,7 +33,7 @@ export default function SectionDoulaPackage({ id }: { id: string }) {
                 </div>
             ))}
         </div>
-        {!doulaPackage && <div className="px-4 mt-1 font-serif">
+        {doulaPackage.length < 1 && <div className="px-4 mt-1 font-serif">
             <p className="text-sm text-gray-500 text-center">This person don't have any package!!</p>
         </div>}
     </>)

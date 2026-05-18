@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query"
-import { getMyDoulaPackage, postDoulaPackage, putDoulaPackage } from "../service/Api"
+import { getMyDoulaPackage, getMyPackageRequest, postDoulaPackage, putDoulaPackage } from "../service/Api"
 import { handleError } from "@/utils/ErrorHandle"
 import type { packageRequest } from "../schema/PackageSchema.type"
 import { toast } from "react-toastify"
@@ -30,7 +30,7 @@ export default function usePackage() {
                     throw err
                 }
             },
-            enabled: role === 'doula'
+            enabled: role !!= 'user'
         })
 
         return {
@@ -73,8 +73,37 @@ export default function usePackage() {
         }
     }
 
+    const useGetMyPackageRequest = () => {
+        const {
+            data,
+            isLoading,
+        } = useTableManager({
+            queryKey: ['my-package-request'],
+            queryFn: async ({ page, offset, search, sort }) => {
+                try {
+                    return await getMyPackageRequest({
+                        page,
+                        limit: 100,
+                        offset,
+                        search,
+                        sort,
+                    })
+                } catch (err: unknown) {
+                    handleError(err)
+                    throw err
+                }
+            },
+        })
+
+        return {
+            data: data ?? [],
+            loading: isLoading,
+        }
+    }
+
     return {
         useGetMyPackage,
         useFormCarePackage,
+        useGetMyPackageRequest
     }
 }

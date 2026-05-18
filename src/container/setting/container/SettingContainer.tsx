@@ -32,6 +32,6 @@ export default function SettingContainer() {
                 ))}
             </div>
         </div>
-        {role === 'doula' ? <FooterDoula /> :<FooterClient />}
+        {role === 'doula' ? <FooterDoula /> : <FooterClient />}
     </>)
 }

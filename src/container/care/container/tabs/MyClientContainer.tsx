@@ -29,8 +29,8 @@ export default function MyClientContainer() {
     const { useGetMyPackage } = usePackage()
     const { data } = useGetMyPackage()
 
-    const { useGetDoulaClent } = useDoula()
-    const { data: doulaClientData, isLoading: doulaClientLoading } = useGetDoulaClent()
+    const { useGetDoulaClient } = useDoula()
+    const { data: doulaClientData, isLoading: doulaClientLoading } = useGetDoulaClient()
 
     const dataPackage = data?.map((e) => ({
         value: e.id, label: e.name
@@ -63,13 +63,7 @@ export default function MyClientContainer() {
                     title={care?.user?.fullName}
                     subTitle={care?.doulaPackage?.name}
                     showExpandRight
-                    onClick={() => nav(`/home/detail/${care?.user?.id}/client`, {
-                        state : {
-                            careId : care?.id,
-                            doulaPackageId : care?.doulaPackage?.id,
-                            doulaPackage : care?.doulaPackage?.name,
-                        }
-                    })}
+                    onClick={() => nav(`/home/detail/${care?.id}/client`)}
                 />
             ))}
             <ComponentCard

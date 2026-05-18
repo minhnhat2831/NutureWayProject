@@ -18,7 +18,7 @@ export default function useCategory(){
                         page,
                         sort,
                         limit,
-                        search,
+                        search : '',
                         offset,
                         f_status : 'active'
                     })

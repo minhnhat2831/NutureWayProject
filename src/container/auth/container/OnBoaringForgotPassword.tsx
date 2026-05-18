@@ -41,6 +41,10 @@ export default function OnBoaringForgotPassword() {
         if (!email) {
             nav('/')
         }
+
+        if(email){
+            method.setValue('email', email)
+        }
     }, [email, nav])
 
     const handleNext = async () => {

@@ -16,7 +16,7 @@ export default function DoulaProfileSkeleton() {
             </div>
             <div className="h-screen bg-white px-2">
                 <div className="relative z-20 bottom-8 ml-2 animate-pulse">
-                    <img src={''} className="w-19 h-19 rounded-3xl border-white border-3 bg-[#cecece]" />
+                    <img className="w-19 h-19 rounded-3xl border-white border-3 bg-[#cecece]" />
                 </div>
                 <div className="flex flex-row justify-between mx-2 animate-pulse">
                     <div className="flex flex-col w-[80%]">
@@ -29,7 +29,7 @@ export default function DoulaProfileSkeleton() {
                 <div className="relative border-b my-4">
                     <div className="flex">
                         {TABS.map((index) => (
-                            <div
+                            <div key={index.id}
                                 className={`flex-1 pb-3 ml-9 text-center capitalize font-medium transition`}>
                                 <div className="w-[70%] h-2 bg-[#cecece]" />
                             </div>
@@ -51,7 +51,7 @@ export default function DoulaProfileSkeleton() {
                     <div className="w-[40%] h-2 bg-[#cecece] my-4" />
                     <div className="flex flex-wrap gap-4">
                         {[1, 2, 3, 4, 5]?.map((index) => (
-                            <img key={index} src={''} className="w-25 h-25 bg-[#cecece] rounded-2xl" />
+                            <img key={index} className="w-25 h-25 bg-[#cecece] rounded-2xl" />
                         ))}
                     </div>
                 </div>

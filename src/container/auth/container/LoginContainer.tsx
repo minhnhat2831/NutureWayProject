@@ -2,10 +2,23 @@ import { useNavigate } from "react-router"
 import AuthLayout from "../components/layout/AuthLayout"
 import { InputForm } from "@/components/form/InputForm"
 import useFormLogin from "../hooks/useFormLogin"
+import { useOnboardingStore } from "../store/useOnboardingStore"
+import { useEffect } from "react"
 
-export default function LoginContainer(){
+export default function LoginContainer() {
     const { method, isLoading, onSubmit } = useFormLogin()
     const nav = useNavigate()
+
+    const { email } = useOnboardingStore()
+    useEffect(() => {
+        if (!email) {
+            nav('/')
+        }
+        if (email) {
+            method.setValue('email', email)
+        }
+
+    }, [method.setValue, email, nav])
 
     return (<>
         <AuthLayout
@@ -18,7 +31,7 @@ export default function LoginContainer(){
                     name="email"
                     label="Email"
                     placeholder="Email"
-                    disabled={isLoading}
+                    disabled={true}
                     required>
                 </InputForm>
                 <InputForm

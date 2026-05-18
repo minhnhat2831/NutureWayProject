@@ -47,7 +47,7 @@ export default function useFormData() {
                 lastName: data.lastName,
                 birthDate: data.birthDate,
                 addressId: data.addressId,
-                picture: null,
+                picture: data.picture,
             }, verifyData!),
         onSuccess: (res) => {
             toast.success(res.message)

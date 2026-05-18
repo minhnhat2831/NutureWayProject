@@ -15,6 +15,12 @@ export const PAYLOAD_RESPONSE = z.object({
     message : z.string()
 })
 
+export type dataResponse = z.infer<typeof DATA_RESPONSE>
+export const DATA_RESPONSE = z.object({
+    message : z.string(),
+    data : z.boolean()
+})
+
 export const PAYLOAD_PICURE = z.object({
     id : z.string(),
     uri : z.string(),
