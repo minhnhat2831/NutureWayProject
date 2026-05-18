@@ -1,7 +1,7 @@
 import axiosInstance from "@/services/Axios";
 import type { careList, careListDetail, manuallyClientRequest, manuallyClientResponse, myCareParams } from "../schema/CareSchema.type";
 import { API_ENDPOINT } from "@/services/Api";
-import type { packageListResponse, packageParams, packageRequest } from "../schema/PackageSchema.type";
+import type { myPackageListResponse, myPackageParams, packageListResponse, packageParams, packageRequest } from "../schema/PackageSchema.type";
 import type { careMedicationListItemResponse, careMedicationListResponse, careMedicationRequest } from "@/container/detail/schema/MedicationSchema.type";
 
 export const getMyCares = async (params: myCareParams): Promise<careList> => {
@@ -67,3 +67,13 @@ export const postManuallyClient = async (data: manuallyClientRequest): Promise<m
     )
     return response.data
 }
+
+export const getMyPackageRequest = async (params : myPackageParams): Promise<myPackageListResponse> => {
+    const response = await axiosInstance.get<myPackageListResponse>(
+        API_ENDPOINT.API_MY_PACKAGE_REQUEST,{
+            params
+        }
+    )
+    return response.data
+}
+

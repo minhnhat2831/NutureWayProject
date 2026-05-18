@@ -30,7 +30,7 @@ export default function useCare() {
                     throw err
                 }
             },
-            enabled : role === 'user'
+            enabled : role !!= 'doula'
         })
 
         return {

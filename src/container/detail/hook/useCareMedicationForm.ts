@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
-import type { careMedicationRequest } from "../../care/schema/CareSchema.type";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { careMedicationRequestSchema } from "../../care/schema/CareSchema";
 import useMedication from "./useMedication";
+import { careMedicationRequestSchema } from "../schema/MedicationSchema";
+import type { careMedicationRequest } from "../schema/MedicationSchema.type";
 
 export default function useMedicationForm() {
     const method = useForm<careMedicationRequest>({

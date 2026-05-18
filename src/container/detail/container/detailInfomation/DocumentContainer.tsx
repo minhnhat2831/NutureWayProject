@@ -1,6 +1,8 @@
 import { Icons } from "@/components/common/Icons";
 import ComponentCard from "@/components/shared/ComponentCard";
 import Header from "@/layout/HeaderLayout";
+import useCareDocument from "../../hook/useDocument";
+import { useParams } from "react-router";
 
 const DOUCUMENT = [
     { doc: 'Doula Care Agreement.pdf', icon: <Icons.pdfFileIcon color="red" />, time: '09 Jan 2023' },
@@ -9,21 +11,29 @@ const DOUCUMENT = [
 ]
 
 export default function DocumentContainer() {
+    const { id } = useParams<{ id: string }>()
+
+    const { useGetAllDocument } = useCareDocument()
+    const { data, isLoading } = useGetAllDocument(id ?? '')
 
     return (<>
         <Header showBack title="Documents" titleAlign="center" iconR1={<Icons.addIcon />} />
         <div className="h-screen bg-white">
             <div className="flex flex-col gap-4 px-2">
-                {DOUCUMENT.map((e, index) => (
+                {data?.map((e, index) => (
                     <ComponentCard
                         key={index}
-                        title={e.doc}
-                        subTitle={e.time}
-                        iconL1={e.icon}
+                        title={e.name}
+                        subTitle={e?.createdAt}
+                        iconL1={e?.document?.type}
                         containerStyle="hover:bg-white"
-                        iconStyle={e.doc.includes('.pdf') ? "bg-red-200" : "bg-blue-200"}
+                        iconStyle={e?.document?.type.includes('.pdf') ? "bg-red-200" : "bg-blue-200"}
                     />
                 ))}
+                {data.length < 1 &&
+                    <div className="mt-10">
+                        <p className="text-gray-400 font-serif text-center">You don't have any document yet!</p>
+                    </div>}
             </div>
         </div>
     </>)

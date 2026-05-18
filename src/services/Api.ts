@@ -73,6 +73,7 @@ export const API_ENDPOINT = {
     API_PACKAGE_REQUEST : '/package-requests',
     API_PACKAGE_REQUEST_BY_ID : (id : string) => `/package-requests/${id}`,
     API_PACKAGE_REQUEST_MANUALLY_CLIENT : '/package-requests/add-manually-client',
+    API_PACKAGE_REQUEST_CHECK : '/package-requests/check',
 
     //Media
     API_MEDIA: "/medias/signed-url",

@@ -1,9 +1,9 @@
-import { PAYLOAD_RESPONSE, STRING_NULL_OR_OPTIONAL, STRING_REQUIRED } from '@/constants/SchemaConstant'
+import { PAYLOAD_RESPONSE, STRING_NULL_OR_OPTIONAL } from '@/constants/SchemaConstant'
 import * as z from 'zod'
 
 export const packageRequestSchema = z.object({
-    doulaPackageId: STRING_REQUIRED,
-    userId: STRING_REQUIRED,
+    doulaPackageId: STRING_NULL_OR_OPTIONAL,
+    userId: STRING_NULL_OR_OPTIONAL,
     message: STRING_NULL_OR_OPTIONAL
 })
 
@@ -20,5 +20,5 @@ export const packageResponseSchema = z.object({
 })
 
 export const packageListResponseSchema = PAYLOAD_RESPONSE.extend({
-    data : packageResponseSchema
+    data: packageResponseSchema
 })

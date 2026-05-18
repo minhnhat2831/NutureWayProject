@@ -1,8 +1,10 @@
 import { Icons } from "@/components/common/Icons";
 import ComponentCard from "@/components/shared/ComponentCard";
+import ComponentSkeletonCard from "@/components/shared/ComponentSkeletonCard";
 import useDoula from "@/container/doulas/hook/useDoula";
 import Header from "@/layout/HeaderLayout";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import Scrollbar from "react-scrollbars-custom";
 
 function TabCard({ name }: { name: string }) {
@@ -15,12 +17,37 @@ const HISTORY = ['birth plan', 'postnatal', 'sibling integation', 'kids and pets
 
 export default function SearchContainer() {
     const { useGetDoulaNear } = useDoula()
-    const { data, setSearch, search } = useGetDoulaNear()
+    const { data, setSearch, search, loading } = useGetDoulaNear()
     const limitedData = data.slice(0, 5) || [];
     const lenghtLimitData = limitedData.length
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const nav = useNavigate()
 
     const searchLength = data.length
+
+    if (loading) {
+        return <>
+            <Header showBack showSearch />
+            <div className="h-screen bg-white">
+                <div className="px-4 py-2">
+                    <div className="w-30 h-4 bg-[#cecece] animate-pulse" />
+                    <div className="flex flex-wrap flex-row gap-2 mt-4">
+                        {HISTORY.map((his: any) => (
+                            <div className="w-[28%] p-4 bg-[#cecece] rounded-3xl animate-pulse" />
+                        ))}
+                    </div>
+                </div>
+                <div className="px-4 py-2">
+                    <div className="w-45 h-4 bg-gray-300 animate-pulse" />
+                    <div className="gap-5 flex flex-col my-5 px-2">
+                        {[1, 2, 3, 4].map((e) => (
+                            <ComponentSkeletonCard key={e} />
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </>
+    }
 
     return (<>
         <div className="h-screen bg-white">
@@ -60,12 +87,12 @@ export default function SearchContainer() {
                             <ComponentCard
                                 key={index}
                                 avatar={res?.picture?.uri}
-                                avatarStyle="rounded-xl"
+                                avatarStyle="rounded-xl w-10 h-10 bg-gray-300"
                                 title={res?.user?.fullName}
                                 subTitle={res?.title}
                                 showRateStar
                                 rateStar={res?.starAvg}
-                                onClick={() => { }}
+                                onClick={() => nav(`/home/doula-profile/${res.id}`)}
                             />
                         ))}
                     </div>
@@ -80,7 +107,10 @@ export default function SearchContainer() {
                             key={index}
                             title={res?.title}
                             iconL1={<Icons.searchIcon />}
-                            onClick={() => { }}
+                            onClick={() => (
+                                setSearch(res.title),
+                                setIsSubmitted(true)
+                            )}
                         />
                     ))}
                 </div>
@@ -98,7 +128,7 @@ export default function SearchContainer() {
                             <ComponentCard
                                 key={index}
                                 avatar={res?.picture?.uri}
-                                avatarStyle="rounded-xl"
+                                avatarStyle="rounded-xl bg-gray-300 w-12 h-12"
                                 title={res?.user?.fullName}
                                 subTitle={res?.title}
                                 showRateStar

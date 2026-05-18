@@ -4,8 +4,10 @@ import { handleError } from "@/utils/ErrorHandle";
 import { useQuery } from "@tanstack/react-query";
 import { type doulaListDetail, type doulaPackageList, type doulaReviewStarListItemResponse } from "../schema/DoulaSchema.type";
 import type { myPackageListResponse, myPackageResponse } from "@/container/care/schema/CareSchema.type";
+import { useAuthen } from "@/context/AuthContext";
 
 export default function useDoula() {
+    const { role } = useAuthen()
     const useGetDoulaNear = () => {
         const f_id = `ni[${'2689bc7a-edba-4eb8-95fc-dac4aafbbc40'}]`
         const {
@@ -121,7 +123,7 @@ export default function useDoula() {
         }
     }
 
-    const useGetDoulaClent = () => {
+    const useGetDoulaClient = () => {
         const {
             data,
             isLoading
@@ -140,7 +142,8 @@ export default function useDoula() {
                     handleError(err)
                     throw err
                 }
-            }
+            },
+            enabled : role !!= 'user'
         })
 
         return {
@@ -200,7 +203,7 @@ export default function useDoula() {
         useGetDoulaNear,
         useGetDoulaById,
         useGetDoulaPackageById,
-        useGetDoulaClent,
+        useGetDoulaClient,
         useGetDoulaPackage,
         useGetDoulaReviewStar,
         useGetDoulaReview,

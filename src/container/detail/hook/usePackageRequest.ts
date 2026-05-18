@@ -1,13 +1,14 @@
 import { useMutation } from "@tanstack/react-query";
 import type { packageRequest } from "../schema/PackageSchema.type";
 import { postPackageRequest } from "../services/Api";
-import { toast } from "react-toastify";
 import { handleError } from "@/utils/ErrorHandle";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { packageRequestSchema } from "../schema/PackageSchema";
 
-export default function usePackageRequest(){
+export default function usePackageRequest(option? : {
+    onSuccess : (res : any) => void
+}){
     const method = useForm<packageRequest>({
         mode : 'onChange',
         resolver : zodResolver(packageRequestSchema),
@@ -21,7 +22,7 @@ export default function usePackageRequest(){
         mutationFn : async (data : packageRequest) => {
             return await postPackageRequest(data)
         },onSuccess : (res) => {
-            toast.success(res.message)
+            option?.onSuccess?.(res)
         },onError : (err : unknown) => {
             handleError(err)
         }

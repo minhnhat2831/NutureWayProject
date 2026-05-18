@@ -325,9 +325,43 @@ export const phone = () => {
     </svg>
 }
 
-export const map = ({ fillColor = 'black', stroke = 'none' }: { fillColor?: string, stroke? : string }) => {
+export const map = ({ fillColor = 'none', stroke = 'none' }: { fillColor?: string, stroke?: string }) => {
     return <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={stroke} xmlns="http://www.w3.org/2000/svg">
         <path d="M21.4613 4.65842C21.3714 4.58842 21.2668 4.53979 21.1554 4.51624C21.0439 4.49269 20.9286 4.49482 20.8181 4.52248L15.0872 5.95498L9.33563 3.07873C9.17537 2.9988 8.99181 2.97885 8.81812 3.02248L2.81812 4.52248C2.65587 4.56304 2.51183 4.65667 2.40889 4.78848C2.30595 4.9203 2.25003 5.08274 2.25 5.24998V18.75C2.25002 18.8639 2.27601 18.9764 2.32599 19.0788C2.37598 19.1812 2.44864 19.2709 2.53847 19.341C2.62831 19.4112 2.73294 19.4599 2.84442 19.4836C2.95591 19.5072 3.07131 19.5051 3.18187 19.4775L8.91281 18.045L14.6644 20.9212C14.7688 20.9727 14.8836 20.9996 15 21C15.0613 20.9999 15.1224 20.9924 15.1819 20.9775L21.1819 19.4775C21.3441 19.4369 21.4882 19.3433 21.5911 19.2115C21.694 19.0797 21.75 18.9172 21.75 18.75V5.24998C21.75 5.13591 21.724 5.02334 21.674 4.92083C21.624 4.81832 21.5512 4.72857 21.4613 4.65842ZM9.75 4.96311L14.25 7.21311V19.0369L9.75 16.7869V4.96311ZM3.75 5.83592L8.25 4.71092V16.664L3.75 17.789V5.83592ZM20.25 18.164L15.75 19.289V7.33592L20.25 6.21092V18.164Z" stroke={stroke} fill="#0A0A0A" />
+    </svg>
+}
+
+export const cube = ({ fillColor = 'none', stroke = '#0A0A0A' }: { fillColor?: string, stroke?: string }) => {
+    return <svg width="24" height="24" viewBox="0 0 24 24" fill={fillColor} xmlns="http://www.w3.org/2000/svg">
+        <path d="M7.75 4.5L3.5 7V12V17L7.75 19.5L12 22L16.25 19.5L20.5 17V12V7L16.25 4.5L12 2L7.75 4.5Z" stroke={stroke} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M12 2V12" stroke={stroke} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M20.5 17L12 12" stroke={stroke} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M3.5 17L12 12" stroke={stroke} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M12 22V17" stroke={stroke} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M20.5 7L16.5 9.5" stroke={stroke} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="M3.5 7L7.5 9.5" stroke={stroke} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+}
+
+export const loading = () => {
+    return <svg
+        className={`h-5 w-5 animate-spin`}
+        fill="none"
+        viewBox="0 0 24 24"
+    >
+        <circle
+            className="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            strokeWidth="4"
+        />
+        <path
+            className="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+        />
     </svg>
 }
 
@@ -370,5 +404,7 @@ export const Icons = {
     editPenIcon: editPen,
     switchChangeIcon: switchChange,
     phoneIcon: phone,
-    mapIcon : map
+    mapIcon: map,
+    cubeIcon : cube,
+    loadingIcon : loading
 }

@@ -30,7 +30,7 @@ export const careListResponseSchema = z.object({
             firstName: z.string(),
             middleName: z.string(),
             lastName: z.string(),
-            picture: z.string(),
+            picture: PAYLOAD_PICURE
         })
     }),
     doulaPackage: z.object({
@@ -53,18 +53,41 @@ export const careListDetailResponseSchema = z.object({
     endDate: z.string(),
     createdAt: z.string(),
     updatedAt: z.string(),
+    deletedAt: z.string(),
+    user: z.object({
+        fullName: z.string(),
+        firstName: z.string(),
+        middleName: z.string(),
+        lastName: z.string(),
+        picture: PAYLOAD_PICURE
+    }),
+    doula: z.object({
+        title: z.string(),
+        user: z.object({
+            fullName: z.string(),
+            firstName: z.string(),
+            middleName: z.string(),
+            lastName: z.string(),
+            picture: PAYLOAD_PICURE
+        })
+    }),
+    doulaPackage: z.object({
+        id: z.string(),
+        name: z.string(),
+        price: z.string(),
+        description: z.string(),
+        shortDescription: z.string(),
+        qualifications: z.array(z.string()),
+        createdAt: z.string(),
+        updatedAt: z.string(),
+        deletedAt: z.string(),
+        picture: PAYLOAD_PICURE
+    }),
     packageRequest: z.object({
         id: z.string(),
         status: z.string(),
         message: z.string(),
-        createdAt: z.string(),
-    }),
-    doulaPackage: z.object({
-        name: z.string(),
-        price: z.string(),
-        description: z.string(),
-        quanlifications: z.array(z.string()),
-        picture: PAYLOAD_PICURE
+        createdAt: z.string()
     })
 })
 
@@ -76,32 +99,33 @@ export const careListDetailSchema = PAYLOAD_RESPONSE.extend({
 export const myPackageResponseSchema = z.object({
     id: z.string(),
     name: z.string(),
-    price : z.string(),
+    price: z.string(),
     shortDescription: z.string(),
     description: z.string(),
     status: z.string(),
     picture: PAYLOAD_PICURE,
     quanlification: z.array(z.string()),
     createdAt: z.string(),
-    updatedAt : z.string(),
-    deletedAt : z.string(),
+    updatedAt: z.string(),
+    deletedAt: z.string(),
 })
 
 export const myPackageResponse = PAYLOAD_RESPONSE.extend({
-    data : myPackageResponseSchema
+    data: myPackageResponseSchema
 })
 
 export const myPackageListResponse = PAYLOAD_RESPONSE.extend({
-    data : z.array(myPackageResponseSchema)
+    data: z.array(myPackageResponseSchema),
+    metadata: METADATA
 })
 
 export const manuallyClientRequestSchema = z.object({
-    firstName : STRING_NULL_OR_OPTIONAL,
-    lastName : STRING_NULL_OR_OPTIONAL,
-    fullName : STRING_REQUIRED,
-    doulaPackageId : STRING_REQUIRED
+    firstName: STRING_NULL_OR_OPTIONAL,
+    lastName: STRING_NULL_OR_OPTIONAL,
+    fullName: STRING_REQUIRED,
+    doulaPackageId: STRING_REQUIRED
 })
 
 export const manuallyClientResponseSchema = PAYLOAD_RESPONSE.extend({
-    data : z.boolean()
+    data: z.boolean()
 })

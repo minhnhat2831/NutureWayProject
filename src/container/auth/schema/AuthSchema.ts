@@ -184,7 +184,8 @@ export const registerStepSchema = z.object({
     lastName: STRING_REQUIRED,
     birthDate: STRING_REQUIRED,
     otp : STRING_REQUIRED,
-    addressId : STRING_REQUIRED
+    addressId : STRING_REQUIRED,
+    picture : PAYLOAD_PICURE
 }).superRefine((data, ctx) => {
     if(!data.password || data.password.length < 6 || data.password.length > 32){
         ctx.addIssue({

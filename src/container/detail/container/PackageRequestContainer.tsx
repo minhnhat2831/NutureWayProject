@@ -11,6 +11,9 @@ import PackageDetailSkeleton from "../components/PackageDetailSkeleton";
 import { InputForm } from "@/components/form/InputForm";
 import type { packageRequest } from "../schema/PackageSchema.type";
 import { useAuthen } from "@/context/AuthContext";
+import { FormProvider } from "react-hook-form";
+import { toast } from "react-toastify";
+import { queryClient } from "@/main";
 
 const EXPECT = [
     { title: 'Doula reviews your request', subTitle: 'Doula will review your request and assess their suitability to meet your needs.', icon: <Icons.securityIcon /> },
@@ -21,23 +24,28 @@ const EXPECT = [
 export default function PackageRequestContainer() {
     const { user } = useAuthen()
     const [open, setOpen] = useState(false)
-    const { id } = useParams<{ id : string }>()
+    const { id } = useParams<{ id: string }>()
     const { useGetDoulaPackageById } = useDoula()
     const { data, loading } = useGetDoulaPackageById(id ?? '')
 
-    const { method, onSubmit, loading : loadingPackageRequest } = usePackageRequest()
+    const { method, onSubmit, loading: loadingPackageRequest } = usePackageRequest(
+        {onSuccess: (res) => {
+            setOpen(false)
+            queryClient.invalidateQueries({ queryKey : ['my-package-request']})
+            toast.success(res.message)
+        }})
 
-    if(loading){
+    if (loading) {
         return <PackageDetailSkeleton />
     }
 
-    const submit = (data : packageRequest) => {
-        onSubmit({
-            doulaPackageId : data.doulaPackageId,
-            userId : user?.id ?? '',
-            message : data.message
+    const submit = method.handleSubmit(async (data: packageRequest) => {
+        await onSubmit({
+            doulaPackageId: id ?? '',
+            userId: user?.id ?? '',
+            message: data.message
         })
-    }
+    })
 
     return (<>
         <div className="h-screen bg-white overflow-y-auto">
@@ -46,7 +54,7 @@ export default function PackageRequestContainer() {
                 title="Package Detail"
                 titleAlign="center"
             />
-            <img src={data?.picture.uri} alt="picture" className="w-full h-40 bg-gray-300" />
+            <img src={data?.picture?.uri} alt="picture" className="w-full h-40 bg-gray-300" />
             <div className="px-4 my-8 font-serif">
                 <h2 className="font-semibold text-lg leading-6">{data?.name}</h2>
                 <h3 className="font-normal text-gray-400 text-sm leading-5">{data?.shortDescription}</h3>
@@ -79,7 +87,7 @@ export default function PackageRequestContainer() {
                         </button>
                     </div>
                     <div className="flex flex-row gap-4 items-center">
-                        <img src={data?.picture.uri} alt="avarta" className="w-20 h-20 rounded-xl bg-gray-300" />
+                        <img src={data?.picture?.uri} alt="avarta" className="w-20 h-20 rounded-xl bg-gray-300" />
                         <div>
                             <p className="font-semibold text-lg leading-6">Nellie King</p>
                             <p className="font-normal text-sm leading-5 text-gray-400">Childbirth professional</p>
@@ -91,33 +99,33 @@ export default function PackageRequestContainer() {
                         <p className="font-serif text-sm leading-5">Expected Date of birth, upcoming appointments</p>
                         <p className="font-serif text-sm leading-5">And any special requests you may have.</p>
                     </div>
-
-                    <InputForm
-                        name="message"
-                        insideLabel="Detail of your request"
-                        placeholder="Input"
-                        disabled={!loadingPackageRequest}
-                    />
-
-                    <p className="font-serif italic text-sm leading-5 text-gray-400 my-4">What to expect next</p>
-
-                    {EXPECT.map((e, index) => (
-                        <ComponentCard
-                            key={index}
-                            containerStyle="hover:bg-white hover:shadow-none"
-                            title={e.title}
-                            subTitle={e.subTitle}
-                            iconL1={e.icon}
-                            iconStyle="bg-white"
+                    <FormProvider {...method}>
+                        <InputForm
+                            name="message"
+                            insideLabel="Detail of your request"
+                            placeholder="Input"
+                            disabled={loadingPackageRequest}
                         />
-                    ))}
-                    <ButtonField
-                        fullWidth
-                        type="button"
-                        disabled={loadingPackageRequest}
-                        onClick={() => method.handleSubmit(submit)}
-                    >Send</ButtonField>
 
+                        <p className="font-serif italic text-sm leading-5 text-gray-400 my-4">What to expect next</p>
+
+                        {EXPECT.map((e, index) => (
+                            <ComponentCard
+                                key={index}
+                                containerStyle="hover:bg-white hover:shadow-none"
+                                title={e.title}
+                                subTitle={e.subTitle}
+                                iconL1={e.icon}
+                                iconStyle="bg-white"
+                            />
+                        ))}
+                        <ButtonField
+                            fullWidth
+                            type="button"
+                            disabled={loadingPackageRequest}
+                            onClick={() => submit()}
+                        >Send</ButtonField>
+                    </FormProvider>
                 </div>
             </Popup>
         </div>

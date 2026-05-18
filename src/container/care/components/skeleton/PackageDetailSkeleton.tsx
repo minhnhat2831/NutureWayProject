@@ -10,7 +10,7 @@ export default function PackageDetailSkeleton() {
             iconR1={<Icons.editPenIcon />}
         />
         <div className="h-screen bg-white overflow-y-auto">
-            <img src={''} className="w-100 h-47 bg-[#cecece] animate-pulse"></img>
+            <img className="w-100 h-47 bg-[#cecece] animate-pulse"></img>
 
             <div className="px-4 my-8 font-serif">
                 <div className="w-[80%] h-4 bg-[#cecece] animate-pulse" />

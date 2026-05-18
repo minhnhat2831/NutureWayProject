@@ -14,7 +14,7 @@ export default function ArticleDetailSkeleton() {
                     <div className="w-full h-3 bg-[#cecece]" />
                     <div className="w-[70%] h-3 bg-[#cecece] mt-1" />
                 </div>
-                <img src={''} className="w-100 h-45 animate-pulse bg-[#cecece]" />
+                <img className="w-100 h-45 animate-pulse bg-[#cecece]" />
                 <div className="px-4 my-4 animate-pulse">
                     <div className="w-[80%] h-3 bg-[#cecece]" />
                     {[1, 2, 3, 4, 5, 6].map((e) => (

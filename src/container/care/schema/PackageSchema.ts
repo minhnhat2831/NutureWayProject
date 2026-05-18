@@ -1,4 +1,4 @@
-import { METADATA, PARAMS, PAYLOAD_PICURE, PAYLOAD_RESPONSE, STRING_REQUIRED } from '@/constants/SchemaConstant'
+import { METADATA, PARAMS, PAYLOAD_PICURE, PAYLOAD_RESPONSE, STRING_NULL_OR_OPTIONAL, STRING_REQUIRED } from '@/constants/SchemaConstant'
 import * as z from 'zod'
 
 export const packageParamsSchema = PARAMS.extend({
@@ -51,4 +51,60 @@ export const packageResponseSchema = z.object({
 export const packageListResponseSchema = PAYLOAD_RESPONSE.extend({
     data : z.array(packageResponseSchema),
     metadata : METADATA
+})
+
+export const myPackageParamsSchema = PARAMS.extend({
+    f_status: STRING_NULL_OR_OPTIONAL
+})
+
+export const myPackageResponseSchema = z.object({
+    id: z.string(),
+    doulaPackageId: z.string(),
+    userId: z.string(),
+    doulaId: z.string(),
+    message: z.string(),
+    status: z.string(),
+    updatedBy: z.string(),
+    createdAt: z.string(),
+    updatedAt: z.string(),
+    package: z.object({
+        id: z.string(),
+        doulaId: z.string(),
+        name: z.string(),
+        price: z.string(),
+        description: z.string(),
+        shortDescription: z.string(),
+        picture: PAYLOAD_PICURE,
+        qualifications : z.array(z.string()),
+        createdAt: z.string(),
+        updatedAt: z.string(),
+    }),
+    user: z.object({
+        fullName: z.string(),
+        id: z.string(),
+        firstName: z.string(),
+        middleName: z.string(),
+        lastName: z.string(),
+        picture: PAYLOAD_PICURE
+    }),
+    doula: z.object({
+        title: z.string(),
+        user: z.object({
+            fullName: z.string(),
+            id: z.string(),
+            firstName: z.string(),
+            middleName: z.string(),
+            lastName: z.string(),
+            picture: PAYLOAD_PICURE
+        })
+    })
+})
+
+export const myPackageListResponseSchema = PAYLOAD_RESPONSE.extend({
+    data : z.array(myPackageResponseSchema),
+    metadata : METADATA
+})
+
+export const myPackageListItemResponseSchema = PAYLOAD_RESPONSE.extend({
+    data : (myPackageResponseSchema)
 })

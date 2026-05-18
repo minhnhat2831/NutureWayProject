@@ -25,8 +25,13 @@ import UserProfilePage from "../user/UserProfilePage";
 import CalenderPage from "../appointment/CalenderPage";
 import DetailPackagePage from "../detail/DetailPackagePage";
 import PackageRequestPage from "../package/PackageRequestPage";
+import { useAuthen } from "@/context/AuthContext";
 
 export default function PageRouter() {
+    const { role } = useAuthen()
+    const isDoula = role === 'doula'
+    const isClient = role === 'user'
+
     return (<>
         {/* /home */}
         <Routes>
@@ -46,35 +51,41 @@ export default function PageRouter() {
                     </PageLayout>
                 }>
             </Route>
-            <Route path="/care/package"
-                element={
-                    <PageLayout>
-                        <OnBoadingPackage />
-                    </PageLayout>
-                }>
-            </Route>
-            <Route path="/care/package/:id"
-                element={
-                    <PageLayout>
-                        <PackageDetailContainer />
-                    </PageLayout>
-                }>
-            </Route>
-            <Route path="/care/package/edit/:id"
-                element={
-                    <PageLayout>
-                        <OnBoadingPackage />
-                    </PageLayout>
-                }>
-            </Route>
-            
-            <Route path="/category/:id"
-                element={
-                    <PageLayout>
-                        <CategoryDetailPage />
-                    </PageLayout>
-                }>
-            </Route>
+
+            {isDoula && <>
+                <Route path="/care/package"
+                    element={
+                        <PageLayout>
+                            <OnBoadingPackage />
+                        </PageLayout>
+                    }>
+                </Route>
+
+                <Route path="/care/package/:id"
+                    element={
+                        <PageLayout>
+                            <PackageDetailContainer />
+                        </PageLayout>
+                    }>
+                </Route>
+                <Route path="/care/package/edit/:id"
+                    element={
+                        <PageLayout>
+                            <OnBoadingPackage />
+                        </PageLayout>
+                    }>
+                </Route>
+            </>}
+
+            {isClient && <>
+                <Route path="/category/:id"
+                    element={
+                        <PageLayout>
+                            <CategoryDetailPage />
+                        </PageLayout>
+                    }>
+                </Route>
+            </>}
             <Route path="/article/:id"
                 element={
                     <PageLayout>
@@ -109,20 +120,27 @@ export default function PageRouter() {
                         <HelpCenterPage />
                     </PageLayout>
                 }></Route>
-            <Route path="/detail/:id/doulas"
-                element={
-                    <PageLayout>
-                        <DetailPage />
-                    </PageLayout>
-                }>
-            </Route>
-            <Route path="/detail/:id/client"
-                element={
-                    <PageLayout>
-                        <DetailPage />
-                    </PageLayout>
-                }>
-            </Route>
+
+            {isClient && <>
+                <Route path="/detail/:id/doula"
+                    element={
+                        <PageLayout>
+                            <DetailPage />
+                        </PageLayout>
+                    }>
+                </Route>
+            </>}
+
+            {isDoula && <>
+                <Route path="/detail/:id/client"
+                    element={
+                        <PageLayout>
+                            <DetailPage />
+                        </PageLayout>
+                    }>
+                </Route>
+            </>}
+
             <Route path="/detail/package-detail/:id"
                 element={
                     <PageLayout>
@@ -137,7 +155,7 @@ export default function PageRouter() {
                     </PageLayout>
                 }>
             </Route>
-            <Route path="/detail/documents"
+            <Route path="/detail/documents/:id"
                 element={
                     <PageLayout>
                         <DocumentPage />
@@ -173,12 +191,14 @@ export default function PageRouter() {
                         <AppointmentPage />
                     </PageLayout>}>
             </Route>
-            <Route path="/calender"
-                element={
-                    <PageLayout>
-                        <CalenderPage />
-                    </PageLayout>}>
-            </Route>
+            {isDoula && <>
+                <Route path="/calender"
+                    element={
+                        <PageLayout>
+                            <CalenderPage />
+                        </PageLayout>}>
+                </Route>
+            </>}
             <Route path="/message"
                 element={
                     <PageLayout>

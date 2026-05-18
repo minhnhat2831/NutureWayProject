@@ -6,6 +6,7 @@ export default function SectionForgotPassword() {
             name="email"
             label="Email"
             placeholder="Email"
+            disabled={true}
             required>
         </InputForm>
     </>)
